@@ -2,11 +2,22 @@ import { Then } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 
 Then(
-    /^the contacts header should contain the text Contacts$/,
-    async function() {
-        console.log('the contacts header should contain the text Contacts');
+    /^the "([^"]*)" should contain the text "([^"]*)"$/,
+    async function(elementKey: string, expectedElementText: string) {
+        console.log(`the ${elementKey} should contain the text ${expectedElementText}`);
 
         const content = await global.page.textContent('[data-id="contacts"]');
-        expect(content).toBe('Contacts')
+        expect(content).toBe(expectedElementText);
+    }
+)
+
+Then(
+    /^the "([^"]*)" should be displayed$/,
+    async function(elementKey: string) {
+        console.log(`the ${elementKey} should be displayed`);
+
+        const locator = global.page.locator('[data-id="logo-image"]');
+
+        await expect(locator).toBeVisible();
     }
 )
