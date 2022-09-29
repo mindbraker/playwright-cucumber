@@ -1,5 +1,6 @@
 import { Before, After, ITestCaseHookParameter } from '@cucumber/cucumber'
 import { ScenarioWorld } from './world'
+import { env } from '../../env/parseEnvs'
 
 
 Before(async function (this: ScenarioWorld, scenario) {
@@ -7,7 +8,7 @@ Before(async function (this: ScenarioWorld, scenario) {
 
     const contextOptions = {
         recordVideo: {
-            dir: './reports/videos/' + scenario.pickle.name
+            dir: `${env('VIDEO_PATH')}${scenario.pickle.name}`
         }
     }
 
@@ -23,9 +24,10 @@ After(async function (this: ScenarioWorld, scenario) {
     const scenarioStatus = scenario.result?.status;
 
     if (scenarioStatus === 'FAILED') {
-        await page.screenshot({
-            path: `./reports/screenshots/${scenario.pickle.name}.png`
-        })
+        const screenshot = await page.screenshot({
+            path: `${env('SCREENSHOT_PATH')}${scenario.pickle.name}.png`
+        });
+        await this.attach(screenshot, 'image/png');
     }
     
     await browser.close();
