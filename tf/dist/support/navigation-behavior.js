@@ -11,21 +11,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var navigateToPage = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(page, pageId, _ref) {
-    var pagesConfig, hostsConfig, _process$env$UI_AUTOM, hostName, hostPath, url, pagesConfigItem;
+    var pagesConfig, hostsConfig, _process$env$UI_AUTOM, hostname, hostpath, url, pagesConfigItem;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             pagesConfig = _ref.pagesConfig, hostsConfig = _ref.hostsConfig;
-            _process$env$UI_AUTOM = process.env.UI_AUTOMATION_HOST, hostName = _process$env$UI_AUTOM === void 0 ? 'localhost' : _process$env$UI_AUTOM;
-            hostPath = hostsConfig["".concat(hostName)];
-            console.log('Hostpath ', hostPath);
-            url = new URL(hostPath);
-            console.log('URL ', url);
+            _process$env$UI_AUTOM = process.env.UI_AUTOMATION_HOST, hostname = _process$env$UI_AUTOM === void 0 ? 'localhost' : _process$env$UI_AUTOM;
+            hostpath = hostsConfig["".concat(hostname)];
+            console.log('🌐 Hostpath:', hostpath);
+            url = new URL(hostpath);
+            console.log('🌐 URL:', url);
             pagesConfigItem = pagesConfig[pageId];
             url.pathname = pagesConfigItem.route;
-            console.log('Pages route ', url.pathname);
+            console.log('🌐 Pages route:', url.pathname);
             _context.next = 11;
             return page.goto(url.href);
 

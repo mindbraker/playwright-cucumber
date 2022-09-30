@@ -10,17 +10,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 (0, _cucumber.Given)(/^I am on the "([^"]*)" page$/, /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(pageId) {
-    var page, globalConfig;
+    var page, globalVariables, globalConfig;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("I am on the ".concat(pageId, " page"));
-            _context.next = 4;
+            page = this.screen.page, globalVariables = this.globalVariables, globalConfig = this.globalConfig;
+            console.log("\uD83D\uDCDC I am on the ".concat(pageId, " page"));
+            globalVariables.currentScreen = pageId;
+            _context.next = 5;
             return (0, _navigationBehavior.navigateToPage)(page, pageId, globalConfig);
 
-          case 4:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -28,7 +29,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }, _callee, this);
   }));
 
-  return function (_x) {
+  return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }());

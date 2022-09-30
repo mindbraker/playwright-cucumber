@@ -55,6 +55,8 @@ var ScenarioWorld = /*#__PURE__*/function (_World) {
 
     _defineProperty(_assertThisInitialized(_this), "globalConfig", void 0);
 
+    _defineProperty(_assertThisInitialized(_this), "globalVariables", void 0);
+
     _defineProperty(_assertThisInitialized(_this), "screen", void 0);
 
     _defineProperty(_assertThisInitialized(_this), "newBrowser", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -85,6 +87,9 @@ var ScenarioWorld = /*#__PURE__*/function (_World) {
     })));
 
     _this.globalConfig = options.parameters;
+    _this.globalVariables = {
+      currentScreen: ""
+    };
     return _this;
   }
 
