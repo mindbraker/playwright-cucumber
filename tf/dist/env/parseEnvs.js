@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.env = void 0;
+exports.getJsonFromFile = exports.env = void 0;
 
 var env = function env(key) {
   var value = process.env[key];
@@ -16,3 +16,9 @@ var env = function env(key) {
 };
 
 exports.env = env;
+
+var getJsonFromFile = function getJsonFromFile(path) {
+  return require("".concat(process.cwd()).concat(path));
+};
+
+exports.getJsonFromFile = getJsonFromFile;
