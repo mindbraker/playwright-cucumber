@@ -1,0 +1,33 @@
+import { When } from '@cucumber/cucumber'
+import { ScenarioWorld } from '../setup/world'
+import {
+    clickElement
+} from '../../support/html-behavior'
+import { waitFor } from '../../support/wait-for-behavior'
+import { getElementLocator } from '../../support/web-element-helper'
+import { ElementKey } from '../../env/global'
+
+When(
+    /^I click the "([^"]*)" (?:button|link|icon|element)$/,
+    async function(this: ScenarioWorld, ElementKey) {
+        const {
+            screen: { page },
+            globalConfig
+        } = this;
+
+        console.log(`🖱 Clicked ${ElementKey} (?:button|link|icon|element)`);
+
+        const elementIdentifier = getElementLocator(page, ElementKey, globalConfig);
+
+        await waitFor(async () => {
+            const result = await page.waitForSelector(elementIdentifier, {
+                state: 'visible'
+            });
+            if (result) {
+                await clickElement(page, elementIdentifier);
+            }
+            return result
+        })
+    }
+
+)
