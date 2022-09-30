@@ -14,7 +14,7 @@ export const navigateToPage = async (
     console.log('🌐 Hostpath:', hostpath);
 
     const url = new URL(hostpath);
-    console.log('🌐 URL:', url);
+    // console.log('🌐 URL:', url);
 
     const pagesConfigItem = pagesConfig[pageId];
     url.pathname = pagesConfigItem.route;

@@ -21,15 +21,15 @@ var navigateToPage = /*#__PURE__*/function () {
             _process$env$UI_AUTOM = process.env.UI_AUTOMATION_HOST, hostname = _process$env$UI_AUTOM === void 0 ? 'localhost' : _process$env$UI_AUTOM;
             hostpath = hostsConfig["".concat(hostname)];
             console.log('🌐 Hostpath:', hostpath);
-            url = new URL(hostpath);
-            console.log('🌐 URL:', url);
+            url = new URL(hostpath); // console.log('🌐 URL:', url);
+
             pagesConfigItem = pagesConfig[pageId];
             url.pathname = pagesConfigItem.route;
             console.log('🌐 Pages route:', url.pathname);
-            _context.next = 11;
+            _context.next = 10;
             return page.goto(url.href);
 
-          case 11:
+          case 10:
           case "end":
             return _context.stop();
         }

@@ -14,7 +14,7 @@ Given(
             globalConfig
         } = this;
 
-        console.log(`📜 I am on the ${pageId} page`);
+        console.log(`📜 Current page: ${pageId}`);
 
         globalVariables.currentScreen = pageId;
 

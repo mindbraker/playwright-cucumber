@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getJsonFromFile = exports.env = void 0;
+exports.getJsonFromFile = exports.envNumber = exports.env = void 0;
 
 var env = function env(key) {
   var value = process.env[key];
@@ -22,3 +22,9 @@ var getJsonFromFile = function getJsonFromFile(path) {
 };
 
 exports.getJsonFromFile = getJsonFromFile;
+
+var envNumber = function envNumber(key) {
+  return Number(env[key]);
+};
+
+exports.envNumber = envNumber;
