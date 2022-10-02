@@ -15,7 +15,7 @@ Given(
             globalConfig
         } = this;
 
-        console.log(`📜 Current page: ${pageId}`);
+        console.log(`📜 Current page should be: ${pageId}`);
 
         await navigateToPage(page, pageId, globalConfig)
 
@@ -31,7 +31,7 @@ Given(
             globalConfig
         } = this;
 
-        console.log(`🔨 Directed to ${pageId} page`);
+        console.log(`🔨 Navigating to the ${pageId} page`);
 
         await waitFor(() => currentPathMatchesPageId(page, pageId, globalConfig))
     }

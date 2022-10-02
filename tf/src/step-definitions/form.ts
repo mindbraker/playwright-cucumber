@@ -13,7 +13,7 @@ Then (
         globalConfig
     } = this;
 
-    console.log(`📝 Filled ${elementKey} input with ${input}`);
+    console.log(`📝 Filling ${elementKey} input with ${input}`);
 
     const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 
@@ -34,7 +34,7 @@ Then (
             globalConfig
         } = this;
 
-        console.log(`🖱 Selected the ${option} option from ${elementKey}`);
+        console.log(`🖱 Selecting ${option} option from ${elementKey}`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 

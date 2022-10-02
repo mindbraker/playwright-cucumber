@@ -15,7 +15,7 @@ When(
             globalConfig
         } = this;
 
-        console.log(`🖱 Clicked ${ElementKey} (?:button|link|icon|element)`);
+        console.log(`🖱 Clicking ${ElementKey} (?:button|link|icon|element)`);
 
         const elementIdentifier = getElementLocator(page, ElementKey, globalConfig);
 

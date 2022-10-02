@@ -5,41 +5,39 @@ import { ScenarioWorld } from '../setup/world'
 import { waitFor } from '../../support/wait-for-behavior'
 
 Then(
-    /^the "([^"]*)" should contain the text "(.*)"$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, expectedElementText: string) {
+    /^the "([^"]*)" should( not)? contain the text "(.*)"$/,
+    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean, expectedElementText: string) {
         const {
             screen: { page },
             globalConfig,
         } = this;
         
-        console.log(`🔎 ${elementKey} should contain text: ${expectedElementText} 💬`);
+        console.log(`🔎 ${elementKey} should${negate?' not':''} contain text: ${expectedElementText} 💬`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig)
 
         await waitFor(async () => {
             const elementText = await page.textContent(elementIdentifier)
-            return elementText?.includes(expectedElementText)
+            return elementText?.includes(expectedElementText) === !negate
         })
     }
 )
 
 Then(
-    /^the "([^"]*)" should equal the text "(.*)"$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, expectedElementText: string) {
+    /^the "([^"]*)" should( not)? equal the text "(.*)"$/,
+    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean, expectedElementText: string) {
         const {
             screen: { page },
             globalConfig
         } = this;
 
-        console.log(`🔎 ${elementKey} should equal text: ${expectedElementText} 💬`)
+        console.log(`🔎 ${elementKey} should${negate?' not':''} equal text: ${expectedElementText} 💬`)
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig)
 
         await waitFor(async () => {
             const elementText = await page.textContent(elementIdentifier)
-            console.log('elementText', elementText)
-            console.log('expectedElementText', expectedElementText)
-            return (elementText === expectedElementText)
+            return (elementText === expectedElementText) === !negate
         })
     }
 )

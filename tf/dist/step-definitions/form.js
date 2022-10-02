@@ -20,7 +20,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context2.prev = _context2.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDCDD Filled ".concat(elementKey, " input with ").concat(input));
+            console.log("\uD83D\uDCDD Filling ".concat(elementKey, " input with ").concat(input));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             _context2.next = 5;
             return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -76,7 +76,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context4.prev = _context4.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDDB1 Selected the ".concat(option, " option from ").concat(elementKey));
+            console.log("\uD83D\uDDB1 Selecting ".concat(option, " option from ").concat(elementKey));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             _context4.next = 5;
             return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {

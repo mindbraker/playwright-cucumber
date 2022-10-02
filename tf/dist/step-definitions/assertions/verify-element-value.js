@@ -10,15 +10,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-(0, _cucumber.Then)(/^the "([^"]*)" should contain the text "(.*)"$/, /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(elementKey, expectedElementText) {
+(0, _cucumber.Then)(/^the "([^"]*)" should( not)? contain the text "(.*)"$/, /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(elementKey, negate, expectedElementText) {
     var page, globalConfig, elementIdentifier;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDD0E ".concat(elementKey, " should contain text: ").concat(expectedElementText, " \uD83D\uDCAC"));
+            console.log("\uD83D\uDD0E ".concat(elementKey, " should").concat(negate ? ' not' : '', " contain text: ").concat(expectedElementText, " \uD83D\uDCAC"));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             _context2.next = 5;
             return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -32,7 +32,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     case 2:
                       elementText = _context.sent;
-                      return _context.abrupt("return", elementText === null || elementText === void 0 ? void 0 : elementText.includes(expectedElementText));
+                      return _context.abrupt("return", (elementText === null || elementText === void 0 ? void 0 : elementText.includes(expectedElementText)) === !negate);
 
                     case 4:
                     case "end":
@@ -50,19 +50,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }, _callee2, this);
   }));
 
-  return function (_x, _x2, _x3) {
+  return function (_x, _x2, _x3, _x4) {
     return _ref.apply(this, arguments);
   };
 }());
-(0, _cucumber.Then)(/^the "([^"]*)" should equal the text "(.*)"$/, /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(elementKey, expectedElementText) {
+(0, _cucumber.Then)(/^the "([^"]*)" should( not)? equal the text "(.*)"$/, /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(elementKey, negate, expectedElementText) {
     var page, globalConfig, elementIdentifier;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDD0E ".concat(elementKey, " should equal text: ").concat(expectedElementText, " \uD83D\uDCAC"));
+            console.log("\uD83D\uDD0E ".concat(elementKey, " should").concat(negate ? ' not' : '', " equal text: ").concat(expectedElementText, " \uD83D\uDCAC"));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             _context4.next = 5;
             return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
@@ -76,11 +76,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     case 2:
                       elementText = _context3.sent;
-                      console.log('elementText', elementText);
-                      console.log('expectedElementText', expectedElementText);
-                      return _context3.abrupt("return", elementText === expectedElementText);
+                      return _context3.abrupt("return", elementText === expectedElementText === !negate);
 
-                    case 6:
+                    case 4:
                     case "end":
                       return _context3.stop();
                   }
@@ -96,7 +94,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }, _callee4, this);
   }));
 
-  return function (_x4, _x5, _x6) {
+  return function (_x5, _x6, _x7, _x8) {
     return _ref3.apply(this, arguments);
   };
 }());

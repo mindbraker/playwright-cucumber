@@ -18,7 +18,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context.prev = _context.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDCDC Current page: ".concat(pageId));
+            console.log("\uD83D\uDCDC Current page should be: ".concat(pageId));
             _context.next = 4;
             return (0, _navigationBehavior.navigateToPage)(page, pageId, globalConfig);
 
@@ -48,7 +48,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context2.prev = _context2.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDD28 Directed to ".concat(pageId, " page"));
+            console.log("\uD83D\uDD28 Navigating to the ".concat(pageId, " page"));
             _context2.next = 4;
             return (0, _waitForBehavior.waitFor)(function () {
               return (0, _navigationBehavior.currentPathMatchesPageId)(page, pageId, globalConfig);

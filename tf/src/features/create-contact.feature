@@ -1,6 +1,7 @@
 Feature: As a user I expect to be able to create contacts
 
-    @dev
+    @smoke
+    @regression
     Scenario: As a user I expect to be able to create a new contact
         Given I am on the "home" page
         And I click the "create" button
@@ -15,7 +16,8 @@ Feature: As a user I expect to be able to create contacts
         And I am directed to the "home" page
 
         And I fill in the "search" input with "Razvan Ilie"
-        And the "fullname label" should contain the text "Name:"
+        And the "search" should not equal the text "Razvan Ili"
+        And the "contact" should contain the text "Name:"
         And the "name" should equal the text "Razvan Ilie"
         And the "gender label" should contain the text "Gender:"
         And the "gender" should equal the text "Male"
