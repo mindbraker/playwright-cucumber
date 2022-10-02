@@ -14,11 +14,11 @@ Then(
 
         console.log(`🔎 ${elementKey} should${negate?' not':''} be displayed ✨`);
 
-        const elementIdentifier = getElementLocator(page, elementKey, globalConfig)
+        const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
        
         await waitFor(async () => {
-            const isElementVisible = (await page.$(elementIdentifier)) != null
-            return isElementVisible === !negate
+            const isElementVisible = (await page.$(elementIdentifier)) != null;
+            return isElementVisible === !negate;
         })
     }
 )
