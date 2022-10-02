@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.selectValue = exports.inputValue = exports.getValue = exports.clickElement = exports.checkElement = void 0;
+exports.uncheckElement = exports.selectValue = exports.inputValue = exports.getValue = exports.clickElement = exports.checkElement = void 0;
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -113,23 +113,16 @@ var checkElement = /*#__PURE__*/function () {
 
 exports.checkElement = checkElement;
 
-var getValue = /*#__PURE__*/function () {
+var uncheckElement = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(page, elementIdentifier) {
-    var value;
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.next = 2;
-            return page.$eval(elementIdentifier, function (el) {
-              return el.value;
-            });
+            return page.uncheck(elementIdentifier);
 
           case 2:
-            value = _context5.sent;
-            return _context5.abrupt("return", value);
-
-          case 4:
           case "end":
             return _context5.stop();
         }
@@ -137,8 +130,39 @@ var getValue = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function getValue(_x11, _x12) {
+  return function uncheckElement(_x11, _x12) {
     return _ref5.apply(this, arguments);
+  };
+}();
+
+exports.uncheckElement = uncheckElement;
+
+var getValue = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(page, elementIdentifier) {
+    var value;
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return page.$eval(elementIdentifier, function (el) {
+              return el.value;
+            });
+
+          case 2:
+            value = _context6.sent;
+            return _context6.abrupt("return", value);
+
+          case 4:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function getValue(_x13, _x14) {
+    return _ref6.apply(this, arguments);
   };
 }();
 

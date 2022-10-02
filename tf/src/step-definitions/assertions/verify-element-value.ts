@@ -13,7 +13,7 @@ Then(
             globalConfig,
         } = this;
         
-        console.log(`🔎 ${elementKey} should${negate?' not':''} contain text: ${expectedElementText} 💬`);
+        console.log(`🔎 ${elementKey} should ${negate?'not':''} contain text: ${expectedElementText} 💬`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 
@@ -32,7 +32,7 @@ Then(
             globalConfig
         } = this;
 
-        console.log(`🔎 ${elementKey} should${negate?' not':''} equal text: ${expectedElementText} 💬`);
+        console.log(`🔎 ${elementKey} should ${negate?'not':''} equal text: ${expectedElementText} 💬`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 
@@ -51,7 +51,7 @@ Then(
             globalConfig
         } = this;
 
-        console.log(`🔎 ${elementKey} should${negate?' not':''} contain value: ${elementValue} 💬`);
+        console.log(`🔎 ${elementKey} should ${negate?'not':''} contain value: ${elementValue} 💬`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 
@@ -71,7 +71,7 @@ Then(
             globalConfig
         } = this;
 
-        console.log(`🔎 ${elementKey} should${negate?' not':''} equal value: ${elementValue} 💬`);
+        console.log(`🔎 ${elementKey} should ${negate?'not':''} equal value: ${elementValue} 💬`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 
@@ -91,7 +91,7 @@ Then(
             globalConfig
         } = this;
 
-        console.log(`🔎 ${elementKey} should${negate?' not':''} be enabled 💬`);
+        console.log(`🔎 ${elementKey} should ${negate?'not':''} be enabled 💬`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 
