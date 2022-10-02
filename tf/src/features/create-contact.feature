@@ -12,14 +12,14 @@ Feature: As a user I expect to be able to create contacts
         And I fill in the "street" input with "Bucuresti-Domnesti"
         And I fill in the "city" input with "Bucuresti"
         And I click the "save" button
-
         And I am directed to the "home" page
+
         And I fill in the "search" input with "Razvan Ilie"
         And the "fullname label" should contain the text "Name:"
-        And the "name" should contain the text "Razvan Ilie"
+        And the "name" should equal the text "Razvan Ilie"
         And the "gender label" should contain the text "Gender:"
-        And the "gender" should contain the text "Male"
+        And the "gender" should equal the text "Male"
         And the "address label" should contain the text "Address:"
-        And the "address" should contain the text "Bucuresti-Domnesti"
+        And the "address" should equal the text "Bucuresti-Domnesti, Bucuresti"
         And the "edit" should be displayed
         And the "delete" should be displayed

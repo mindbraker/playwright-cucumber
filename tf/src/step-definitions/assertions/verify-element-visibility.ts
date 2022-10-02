@@ -11,7 +11,7 @@ Then(
             globalConfig
         } = this;
 
-        console.log(`🔎 ${elementKey} is displayed ✨`);
+        console.log(`🔎 ${elementKey} should be displayed ✨`);
 
         const elementIdentifier = getElementLocator(page, elementKey, globalConfig)
        
