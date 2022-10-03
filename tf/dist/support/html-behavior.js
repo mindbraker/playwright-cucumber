@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.uncheckElement = exports.selectValue = exports.inputValue = exports.getValue = exports.clickElement = exports.checkElement = void 0;
+exports.uncheckElement = exports.selectValue = exports.inputValueOnIframe = exports.inputValue = exports.getValue = exports.getIframeElement = exports.clickElement = exports.checkElement = void 0;
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -167,3 +167,65 @@ var getValue = /*#__PURE__*/function () {
 }();
 
 exports.getValue = getValue;
+
+var getIframeElement = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(page, iframeIdentifier) {
+    var elementHandle, elementIframe;
+    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return page.waitForSelector(iframeIdentifier);
+
+          case 2:
+            _context7.next = 4;
+            return page.$(iframeIdentifier);
+
+          case 4:
+            elementHandle = _context7.sent;
+            _context7.next = 7;
+            return elementHandle === null || elementHandle === void 0 ? void 0 : elementHandle.contentFrame();
+
+          case 7:
+            elementIframe = _context7.sent;
+            return _context7.abrupt("return", elementIframe);
+
+          case 9:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function getIframeElement(_x15, _x16) {
+    return _ref7.apply(this, arguments);
+  };
+}();
+
+exports.getIframeElement = getIframeElement;
+
+var inputValueOnIframe = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(elementIframe, elementIdentifier, inputValue) {
+    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _context8.next = 2;
+            return elementIframe.fill(elementIdentifier, inputValue);
+
+          case 2:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+
+  return function inputValueOnIframe(_x17, _x18, _x19) {
+    return _ref8.apply(this, arguments);
+  };
+}();
+
+exports.inputValueOnIframe = inputValueOnIframe;

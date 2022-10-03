@@ -20,14 +20,11 @@ When(
         const elementIdentifier = getElementLocator(page, ElementKey, globalConfig);
 
         await waitFor(async () => {
-            const result = await page.waitForSelector(elementIdentifier, {
-                state: 'visible'
-            });
+            const result = await page.waitForSelector(elementIdentifier, { state: 'visible' });
             if (result) {
                 await clickElement(page, elementIdentifier);
             }
-            return result
+            return result;
         })
     }
-
 )
