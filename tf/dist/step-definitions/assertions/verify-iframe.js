@@ -20,7 +20,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context2.prev = _context2.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDC4C ".concat(elementKey, " on the ").concat(iframeName, " iframe should ").concat(negate ? ' not' : '', " be displayed"));
+            console.log("\uD83D\uDD0E ".concat(elementKey, " on the ").concat(iframeName, " iframe should").concat(negate ? ' not' : '', " be displayed"));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             iframeIdentifier = (0, _webElementHelper.getElementLocator)(page, iframeName, globalConfig);
             _context2.next = 6;
@@ -71,7 +71,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context4.prev = _context4.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDC4C ".concat(elementKey, " should").concat(negate ? ' not' : '', " contain the text ").concat(expectedElementText));
+            console.log("\uD83D\uDD0E ".concat(elementKey, " should").concat(negate ? ' not' : '', " contain the text ").concat(expectedElementText));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             iframeIdentifier = (0, _webElementHelper.getElementLocator)(page, iframeName, globalConfig);
             _context4.next = 6;
@@ -121,7 +121,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context6.prev = _context6.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDC4C ".concat(elementKey, " should").concat(negate ? ' not' : '', " equal the text ").concat(expectedElementText));
+            console.log("\uD83D\uDD0E ".concat(elementKey, " should").concat(negate ? ' not' : '', " equal the text ").concat(expectedElementText));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             iframeIdentifier = (0, _webElementHelper.getElementLocator)(page, iframeName, globalConfig);
             _context6.next = 6;
