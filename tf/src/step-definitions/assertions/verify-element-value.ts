@@ -7,7 +7,7 @@ import { waitFor } from '../../support/wait-for-behavior'
 
 Then(
     /^the "([^"]*)" should( not)? contain the text "(.*)"$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean, expectedElementText: string) {
+    async function (this: ScenarioWorld, elementKey: ElementKey, negate: boolean, expectedElementText: string) {
         const {
             screen: { page },
             globalConfig,
@@ -26,7 +26,7 @@ Then(
 
 Then(
     /^the "([^"]*)" should( not)? equal the text "(.*)"$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean, expectedElementText: string) {
+    async function (this: ScenarioWorld, elementKey: ElementKey, negate: boolean, expectedElementText: string) {
         const {
             screen: { page },
             globalConfig
@@ -45,7 +45,7 @@ Then(
 
 Then(
     /^the "([^"]*)" should( not)? contain the value "(.*)"$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean, elementValue: string) {
+    async function (this: ScenarioWorld, elementKey: ElementKey, negate: boolean, elementValue: string) {
         const {
             screen: { page },
             globalConfig
@@ -65,7 +65,7 @@ Then(
 
 Then(
     /^the "([^"]*)" should( not)? equal the value "(.*)"$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean, elementValue: string) {
+    async function (this: ScenarioWorld, elementKey: ElementKey, negate: boolean, elementValue: string) {
         const {
             screen: { page },
             globalConfig
@@ -85,7 +85,7 @@ Then(
 
 Then(
     /^the "([^"]*)" should( not)? be enabled$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean) {
+    async function (this: ScenarioWorld, elementKey: ElementKey, negate: boolean) {
         const {
             screen: { page },
             globalConfig

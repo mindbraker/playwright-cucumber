@@ -6,7 +6,7 @@ import { ElementKey } from '../../env/global'
 
 Then(
     /^the "([^"]*)" (?:check box|radio button) should( not)? be checked$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean) {
+    async function (this: ScenarioWorld, elementKey: ElementKey, negate: boolean) {
         const {
             screen: { page },
             globalConfig

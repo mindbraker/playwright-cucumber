@@ -6,7 +6,7 @@ import { ElementKey } from '../../env/global'
 
 Then(
     /^the "([^"]*)" should( not)? be displayed$/,
-    async function(this: ScenarioWorld, elementKey: ElementKey, negate: boolean) {
+    async function (this: ScenarioWorld, elementKey: ElementKey, negate: boolean) {
         const {
             screen: { page },
             globalConfig
