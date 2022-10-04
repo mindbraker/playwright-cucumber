@@ -18,7 +18,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         switch (_context2.prev = _context2.next) {
           case 0:
             page = this.screen.page, globalConfig = this.globalConfig;
-            console.log("\uD83D\uDD0E ".concat(elementKey, " should ").concat(negate ? 'not' : '', " be displayed \u2728"));
+            console.log("\uD83D\uDD0E ".concat(elementKey, " should").concat(negate ? ' not' : '', " be displayed \u2728"));
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             _context2.next = 5;
             return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
