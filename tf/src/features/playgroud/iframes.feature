@@ -1,6 +1,5 @@
 Feature: As a user I can interact with iframes
 
-    @dev
     @smoke
     @regression
     Scenario: As a user I can interact and assert on iframes

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.uncheckElement = exports.selectValue = exports.inputValueOnIframe = exports.inputValue = exports.getValue = exports.getIframeElement = exports.clickElement = exports.checkElement = void 0;
+exports.uncheckElement = exports.selectValue = exports.inputValueOnPage = exports.inputValueOnIframe = exports.inputValue = exports.getValue = exports.getIframeElement = exports.clickElement = exports.checkElement = void 0;
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -229,3 +229,31 @@ var inputValueOnIframe = /*#__PURE__*/function () {
 }();
 
 exports.inputValueOnIframe = inputValueOnIframe;
+
+var inputValueOnPage = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(pages, pageIndex, elementIdentifier, inputValue) {
+    return regeneratorRuntime.wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            _context9.next = 2;
+            return pages[pageIndex].focus(elementIdentifier);
+
+          case 2:
+            _context9.next = 4;
+            return pages[pageIndex].fill(elementIdentifier, inputValue);
+
+          case 4:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  }));
+
+  return function inputValueOnPage(_x20, _x21, _x22, _x23) {
+    return _ref9.apply(this, arguments);
+  };
+}();
+
+exports.inputValueOnPage = inputValueOnPage;
