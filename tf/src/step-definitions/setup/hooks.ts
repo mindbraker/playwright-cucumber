@@ -17,10 +17,20 @@ Before(async function (this: ScenarioWorld, scenario) {
     return ready;
 })
 
+// After(async function (this: ScenarioWorld, scenario) {
+//     const {
+//       screen: { page, browser, context },
+//     } = this;
+//   ...
+//     await context.tracing.stop({ path: 'trace.zip' });
+//     await browser.close();
+//     return browser;
+//   });
+
 
 After(async function (this: ScenarioWorld, scenario) {
     const {
-        screen: { page, browser }
+        screen: { page, browser, context }
     } = this;
     const scenarioStatus = scenario.result?.status;
 
@@ -30,7 +40,7 @@ After(async function (this: ScenarioWorld, scenario) {
         });
         await this.attach(screenshot, 'image/png');
     }
-    
+    await context.tracing.stop({ path: 'trace.zip' });
     await browser.close();
     return browser;
 })

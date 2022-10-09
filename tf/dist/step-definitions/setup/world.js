@@ -55,6 +55,8 @@ var ScenarioWorld = /*#__PURE__*/function (_World) {
 
     _defineProperty(_assertThisInitialized(_this), "globalConfig", void 0);
 
+    _defineProperty(_assertThisInitialized(_this), "globalVariables", void 0);
+
     _defineProperty(_assertThisInitialized(_this), "screen", void 0);
 
     _defineProperty(_assertThisInitialized(_this), "newBrowser", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -86,6 +88,7 @@ var ScenarioWorld = /*#__PURE__*/function (_World) {
     })));
 
     _this.globalConfig = options.parameters;
+    _this.globalVariables = {};
     return _this;
   }
 
@@ -123,9 +126,16 @@ var ScenarioWorld = /*#__PURE__*/function (_World) {
               case 11:
                 context = _context2.sent;
                 _context2.next = 14;
-                return context.newPage();
+                return context.tracing.start({
+                  snapshots: true,
+                  screenshots: true
+                });
 
               case 14:
+                _context2.next = 16;
+                return context.newPage();
+
+              case 16:
                 page = _context2.sent;
                 this.screen = {
                   browser: browser,
@@ -134,7 +144,7 @@ var ScenarioWorld = /*#__PURE__*/function (_World) {
                 };
                 return _context2.abrupt("return", this.screen);
 
-              case 17:
+              case 19:
               case "end":
                 return _context2.stop();
             }

@@ -279,3 +279,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return _ref11.apply(this, arguments);
   };
 }());
+(0, _cucumber.Then)(/^the "([^"]*)" "([^"]*)" attribute should( not)? contain the text "(.*)"$/, /*#__PURE__*/function () {
+  var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(elementKey, attribute, negate, expectedElementText) {
+    var page, globalConfig, elementIdentifier;
+    return regeneratorRuntime.wrap(function _callee14$(_context14) {
+      while (1) {
+        switch (_context14.prev = _context14.next) {
+          case 0:
+            page = this.screen.page, globalConfig = this.globalConfig;
+            console.log("".concat(elementKey, " ").concat(attribute, " attribute should").concat(negate ? ' not' : '', " contain the text ").concat(expectedElementText));
+            elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
+            _context14.next = 5;
+            return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+              var attributeText;
+              return regeneratorRuntime.wrap(function _callee13$(_context13) {
+                while (1) {
+                  switch (_context13.prev = _context13.next) {
+                    case 0:
+                      _context13.next = 2;
+                      return (0, _htmlBehavior.getAttributeText)(page, elementIdentifier, attribute);
+
+                    case 2:
+                      attributeText = _context13.sent;
+                      return _context13.abrupt("return", (attributeText === null || attributeText === void 0 ? void 0 : attributeText.includes(expectedElementText)) === !negate);
+
+                    case 4:
+                    case "end":
+                      return _context13.stop();
+                  }
+                }
+              }, _callee13);
+            })));
+
+          case 5:
+          case "end":
+            return _context14.stop();
+        }
+      }
+    }, _callee14, this);
+  }));
+
+  return function (_x25, _x26, _x27, _x28, _x29) {
+    return _ref13.apply(this, arguments);
+  };
+}());

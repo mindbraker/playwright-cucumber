@@ -40,18 +40,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}());
+}()); // After(async function (this: ScenarioWorld, scenario) {
+//     const {
+//       screen: { page, browser, context },
+//     } = this;
+//   ...
+//     await context.tracing.stop({ path: 'trace.zip' });
+//     await browser.close();
+//     return browser;
+//   });
+
 (0, _cucumber.After)( /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(scenario) {
     var _scenario$result;
 
-    var _this$screen, page, browser, scenarioStatus, screenshot;
+    var _this$screen, page, browser, context, scenarioStatus, screenshot;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _this$screen = this.screen, page = _this$screen.page, browser = _this$screen.browser;
+            _this$screen = this.screen, page = _this$screen.page, browser = _this$screen.browser, context = _this$screen.context;
             scenarioStatus = (_scenario$result = scenario.result) === null || _scenario$result === void 0 ? void 0 : _scenario$result.status;
 
             if (!(scenarioStatus === 'FAILED')) {
@@ -71,12 +80,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
           case 8:
             _context2.next = 10;
-            return browser.close();
+            return context.tracing.stop({
+              path: 'trace.zip'
+            });
 
           case 10:
+            _context2.next = 12;
+            return browser.close();
+
+          case 12:
             return _context2.abrupt("return", browser);
 
-          case 11:
+          case 13:
           case "end":
             return _context2.stop();
         }

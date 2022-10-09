@@ -1,6 +1,6 @@
 import { Then } from '@cucumber/cucumber'
 import { ElementKey } from '../../env/global'
-import { getValue } from '../../support/html-behavior'
+import { getAttributeText, getValue } from '../../support/html-behavior'
 import { getElementLocator } from '../../support/web-element-helper'
 import { ScenarioWorld } from '../setup/world'
 import { waitFor } from '../../support/wait-for-behavior'
@@ -120,6 +120,25 @@ Then(
         await waitFor(async () => {
             const elementText = await page.textContent(`${elementIdentifier}>>nth=${pageIndex}`);
             return elementText?.includes(expectedElementText) === !negate;
+        })
+    }
+)
+
+Then(
+    /^the "([^"]*)" "([^"]*)" attribute should( not)? contain the text "(.*)"$/,
+    async function (this: ScenarioWorld, elementKey: ElementKey, attribute: string, negate: boolean, expectedElementText: string) {
+        const {
+            screen: { page },
+            globalConfig
+        } = this;
+
+        console.log(`${elementKey} ${attribute} attribute should${negate?' not':''} contain the text ${expectedElementText}`);
+
+        const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
+
+        await waitFor(async () => {
+            const attributeText = await getAttributeText(page, elementIdentifier, attribute);
+            return attributeText?.includes(expectedElementText) === !negate
         })
     }
 )
