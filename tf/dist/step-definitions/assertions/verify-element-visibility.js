@@ -55,3 +55,95 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return _ref.apply(this, arguments);
   };
 }());
+(0, _cucumber.Then)(/^the "([0-9]+th|[0-9]+st|[0-9]+nd|[0-9]+rd)" "([^"]*)" should( not)? be displayed$/, /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(elementPosition, elementKey, negate) {
+    var _elementPosition$matc;
+
+    var page, globalConfig, elementIdentifier, index;
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            page = this.screen.page, globalConfig = this.globalConfig;
+            console.log("\uD83D\uDD0E ".concat(elementPosition, " ").concat(elementKey, " should").concat(negate ? ' not' : '', " be displayed \u2728"));
+            elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
+            index = Number((_elementPosition$matc = elementPosition.match(/\d/g)) === null || _elementPosition$matc === void 0 ? void 0 : _elementPosition$matc.join('')) - 1;
+            _context4.next = 6;
+            return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var isElementVisible;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return page.$("".concat(elementIdentifier, ">>nth=").concat(index));
+
+                    case 2:
+                      _context3.t0 = _context3.sent;
+                      isElementVisible = _context3.t0 != null;
+                      return _context3.abrupt("return", isElementVisible === !negate);
+
+                    case 5:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3);
+            })));
+
+          case 6:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, this);
+  }));
+
+  return function (_x4, _x5, _x6, _x7) {
+    return _ref3.apply(this, arguments);
+  };
+}());
+(0, _cucumber.Then)(/^I should( not)? see "(\d*)" "([^"]*)" displayed$/, /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(negate, count, elementKey) {
+    var page, globalConfig, elementIdentifier;
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            page = this.screen.page, globalConfig = this.globalConfig;
+            console.log("I should".concat(negate ? ' not' : '', " see ").concat(count, " ").concat(elementKey, " displayed"));
+            elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
+            _context6.next = 5;
+            return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var element;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
+                      return page.$$(elementIdentifier);
+
+                    case 2:
+                      element = _context5.sent;
+                      return _context5.abrupt("return", Number(count) === element.length === !negate);
+
+                    case 4:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5);
+            })));
+
+          case 5:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6, this);
+  }));
+
+  return function (_x8, _x9, _x10, _x11) {
+    return _ref5.apply(this, arguments);
+  };
+}());
