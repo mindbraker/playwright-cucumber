@@ -25,8 +25,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var environment = (0, _parseEnvs.env)('NODE_ENV');
+
 _dotenv.default.config({
   path: (0, _parseEnvs.env)('COMMON_CONFIG_FILE')
+});
+
+_dotenv.default.config({
+  path: "".concat((0, _parseEnvs.env)('ENV_PATH')).concat(environment, ".env")
 });
 
 var hostsConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('HOSTS_URLS_PATH'));
