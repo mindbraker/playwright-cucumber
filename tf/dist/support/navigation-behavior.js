@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.navigateToPage = exports.getCurrentPageId = exports.currentPathMatchesPageId = void 0;
+exports.reloadPage = exports.navigateToPage = exports.getCurrentPageId = exports.currentPathMatchesPageId = void 0;
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -79,3 +79,27 @@ var getCurrentPageId = function getCurrentPageId(page, globalConfig) {
 };
 
 exports.getCurrentPageId = getCurrentPageId;
+
+var reloadPage = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(page) {
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return page.reload();
+
+          case 2:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function reloadPage(_x4) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+exports.reloadPage = reloadPage;

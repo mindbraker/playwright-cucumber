@@ -66,3 +66,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return _ref2.apply(this, arguments);
   };
 }());
+(0, _cucumber.Given)(/^I refresh the "([^"]*)" page$/, /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(pageId) {
+    var page, globalConfig;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            page = this.screen.page, globalConfig = this.globalConfig;
+            console.log("\uD83C\uDF10 I refresh the ".concat(pageId));
+            _context3.next = 4;
+            return (0, _navigationBehavior.reloadPage)(page);
+
+          case 4:
+            _context3.next = 6;
+            return (0, _waitForBehavior.waitFor)(function () {
+              return (0, _navigationBehavior.currentPathMatchesPageId)(page, pageId, globalConfig);
+            }, {
+              timeout: 30000
+            });
+
+          case 6:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this);
+  }));
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}());
