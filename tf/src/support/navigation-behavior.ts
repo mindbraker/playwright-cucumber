@@ -8,19 +8,18 @@ export const navigateToPage = async (
 ): Promise<void> => {
     const {
         UI_AUTOMATION_HOST: hostname = 'localhost'
-    } = process.env
+    } = process.env;
 
     const hostpath = hostsConfig[`${hostname}`];
     console.log('🌐 Hostpath:', hostpath);
 
     const url = new URL(hostpath);
-    // console.log('🌐 URL:', url);
 
     const pagesConfigItem = pagesConfig[pageId];
     url.pathname = pagesConfigItem.route;
     console.log('🌐 Pages route:', url.pathname);
 
-    await page.goto(url.href)
+    await page.goto(url.href);
 };
 
 const pathMatchesPageId = (
@@ -30,7 +29,7 @@ const pathMatchesPageId = (
 ): boolean => {
     const pageRegexString = pagesConfig[pageId].regex;
     const pageRegex = new RegExp(pageRegexString);
-    return pageRegex.test(path)
+    return pageRegex.test(path);
 }
 
 export const currentPathMatchesPageId = (
@@ -39,7 +38,7 @@ export const currentPathMatchesPageId = (
     globalConfig: GlobalConfig
 ): boolean => {
     const { pathname: currentPath } = new URL(page.url())
-    return pathMatchesPageId(currentPath, pageId, globalConfig)
+    return pathMatchesPageId(currentPath, pageId, globalConfig);
 };
 
 export const getCurrentPageId = (

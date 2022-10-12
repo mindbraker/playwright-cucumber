@@ -14,7 +14,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 (0, _cucumber.Then)(/^I fill in the "([^"]*)" input on the "([^"]*)" iframe with "([^"]*)"$/, /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(elementKey, iframeName, inputValue) {
-    var page, globalConfig, elementIdentifier, iframeIdentifier, elementIframe;
+    var page, globalConfig, elementIdentifier, iframeIdentifier;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -24,42 +24,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
             iframeIdentifier = (0, _webElementHelper.getElementLocator)(page, iframeName, globalConfig);
             _context2.next = 6;
-            return (0, _htmlBehavior.getIframeElement)(page, iframeIdentifier);
-
-          case 6:
-            elementIframe = _context2.sent;
-            _context2.next = 9;
             return (0, _waitForBehavior.waitFor)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var result;
+              var elementIframe, result;
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
+                      return (0, _htmlBehavior.getIframeElement)(page, iframeIdentifier);
+
+                    case 2:
+                      elementIframe = _context.sent;
+                      _context.next = 5;
                       return page.waitForSelector(iframeIdentifier, {
                         state: 'visible'
                       });
 
-                    case 2:
+                    case 5:
                       result = _context.sent;
 
                       if (!result) {
-                        _context.next = 7;
+                        _context.next = 10;
                         break;
                       }
 
                       if (!elementIframe) {
-                        _context.next = 7;
+                        _context.next = 10;
                         break;
                       }
 
-                      _context.next = 7;
+                      _context.next = 10;
                       return (0, _htmlBehavior.inputValueOnIframe)(elementIframe, elementIdentifier, inputValue);
 
-                    case 7:
+                    case 10:
                       return _context.abrupt("return", result);
 
-                    case 8:
+                    case 11:
                     case "end":
                       return _context.stop();
                   }
@@ -67,7 +67,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }, _callee);
             })));
 
-          case 9:
+          case 6:
           case "end":
             return _context2.stop();
         }

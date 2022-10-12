@@ -18,6 +18,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 0:
             console.log("Running cucumber scenario ".concat(scenario.pickle.name));
             contextOptions = {
+              ignoreHTTPSErrors: true,
               recordVideo: {
                 dir: "".concat((0, _parseEnvs.env)('VIDEO_PATH')).concat(scenario.pickle.name)
               }
@@ -40,16 +41,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}()); // After(async function (this: ScenarioWorld, scenario) {
-//     const {
-//       screen: { page, browser, context },
-//     } = this;
-//   ...
-//     await context.tracing.stop({ path: 'trace.zip' });
-//     await browser.close();
-//     return browser;
-//   });
-
+}());
 (0, _cucumber.After)( /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(scenario) {
     var _scenario$result;

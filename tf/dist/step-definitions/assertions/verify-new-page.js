@@ -24,7 +24,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             console.log("".concat(elementPosition, " (?:tab|window) should").concat(negate ? ' not' : '', " contain the title ").concat(expectedTitle));
             pageIndex = Number((_elementPosition$matc = elementPosition.match(/\d/g)) === null || _elementPosition$matc === void 0 ? void 0 : _elementPosition$matc.join('')) - 1;
             _context2.next = 5;
-            return page.waitForTimeout(1000);
+            return page.waitForTimeout(2000);
 
           case 5:
             _context2.next = 7;

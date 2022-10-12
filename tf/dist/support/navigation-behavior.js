@@ -21,8 +21,7 @@ var navigateToPage = /*#__PURE__*/function () {
             _process$env$UI_AUTOM = process.env.UI_AUTOMATION_HOST, hostname = _process$env$UI_AUTOM === void 0 ? 'localhost' : _process$env$UI_AUTOM;
             hostpath = hostsConfig["".concat(hostname)];
             console.log('🌐 Hostpath:', hostpath);
-            url = new URL(hostpath); // console.log('🌐 URL:', url);
-
+            url = new URL(hostpath);
             pagesConfigItem = pagesConfig[pageId];
             url.pathname = pagesConfigItem.route;
             console.log('🌐 Pages route:', url.pathname);

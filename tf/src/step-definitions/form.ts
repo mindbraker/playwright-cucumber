@@ -4,6 +4,7 @@ import { getElementLocator } from '../support/web-element-helper'
 import { ScenarioWorld } from './setup/world'
 import { ElementKey } from '../env/global'
 import { inputValue, selectValue } from '../support/html-behavior'
+import { parseInput } from '../support/input-helper'
 
 Then (
     /^I fill in the "([^"]*)" input with "([^"]*)"$/,
@@ -20,7 +21,8 @@ Then (
     await waitFor(async () => {
         const result = await page.waitForSelector(elementIdentifier, { state: 'visible' })
         if (result) {
-            await inputValue(page, elementIdentifier, input);
+            const parsedInput = parseInput(input, globalConfig);
+            await inputValue(page, elementIdentifier, parsedInput);
         }
         return result;
     })

@@ -1,5 +1,5 @@
 {
-    "logo": "[data-id='logo-image']",
+    "logo": "[data-id='header-logo']",
     "name": "[data-id='name']",
     "gender": "[data-id='gender']",
     "phone": "[data-id='phone']",
