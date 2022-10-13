@@ -28,7 +28,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
-                      return page.$$eval(elementIdentifier + " " + "tbody tr", function (rows) {
+                      return page.$$eval(elementIdentifier + ' ' + 'tbody tr', function (rows) {
                         return rows.map(function (row) {
                           var cells = row.querySelectorAll('td');
                           return Array.from(cells).map(function (cell) {

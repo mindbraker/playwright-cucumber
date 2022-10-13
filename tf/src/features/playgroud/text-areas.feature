@@ -1,8 +1,7 @@
 Feature: As a user I can interact with text areas
 
-    @smoke
-    @regression
-    Scenario: As a user I can interact and assert on text areas
+  @smoke @regression
+  Scenario: As a user I can interact and assert on text areas
     Given I am on the "home" page
     And I click the "playground" button
     When I am directed to the "playground" page

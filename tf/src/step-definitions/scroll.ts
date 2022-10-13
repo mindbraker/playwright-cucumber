@@ -6,25 +6,27 @@ import { ElementKey } from '../env/global';
 import { scrollIntoView } from '../support/html-behavior';
 
 Then(
-    /^I scroll to the "([^"]*)"$/,
-    async function (this: ScenarioWorld, elementKey: ElementKey) {
-        const {
-            screen: { page },
-            globalConfig
-        } = this;
+	/^I scroll to the "([^"]*)"$/,
+	async function (this: ScenarioWorld, elementKey: ElementKey) {
+		const {
+			screen: { page },
+			globalConfig,
+		} = this;
 
-        console.log(`I scroll to the ${elementKey}`);
+		console.log(`I scroll to the ${elementKey}`);
 
-        const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
+		const elementIdentifier = getElementLocator(page, elementKey, globalConfig);
 
-        await waitFor(async () => {
-            const result = await page.waitForSelector(elementIdentifier, { state: 'visible' });
+		await waitFor(async () => {
+			const result = await page.waitForSelector(elementIdentifier, {
+				state: 'visible',
+			});
 
-            if (result) {
-                await scrollIntoView(page, elementIdentifier)
-            }
+			if (result) {
+				await scrollIntoView(page, elementIdentifier);
+			}
 
-            return result
-        })
-    }
-)
+			return result;
+		});
+	}
+);

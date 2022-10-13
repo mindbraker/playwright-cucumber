@@ -31,7 +31,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     case 0:
                       _context.next = 2;
                       return page.waitForSelector(elementIdentifier, {
-                        state: "visible"
+                        state: 'visible'
                       });
 
                     case 2:
