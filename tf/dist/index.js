@@ -13,11 +13,13 @@ var _parseEnvs = require("./env/parseEnvs");
 
 var fs = _interopRequireWildcard(require("fs"));
 
+var _tagHelper = require("./support/tag-helper");
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -27,11 +29,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var environment = (0, _parseEnvs.env)('NODE_ENV');
 
-_dotenv.default.config({
+_dotenv["default"].config({
   path: (0, _parseEnvs.env)('COMMON_CONFIG_FILE')
 });
 
-_dotenv.default.config({
+_dotenv["default"].config({
   path: "".concat((0, _parseEnvs.env)('ENV_PATH')).concat(environment, ".env")
 });
 
@@ -39,6 +41,17 @@ var hostsConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('HOSTS_URL
 var pagesConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('PAGE_URLS_PATH'));
 var emailsConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('EMAILS_URL_PATH'));
 var mappingFiles = fs.readdirSync("".concat(process.cwd()).concat((0, _parseEnvs.env)('PAGE_ELEMENTS_PATH')));
+
+var getEnvList = function getEnvList() {
+  var envList = Object.keys(hostsConfig);
+
+  if (envList.length === 0) {
+    throw Error("\uD83E\uDDE8 No environments mapped in ".concat((0, _parseEnvs.env)('HOSTS_URLS_PATH')));
+  }
+
+  return envList;
+};
+
 var pageElementMappings = mappingFiles.reduce(function (pageElementConfigAcc, file) {
   var key = file.replace('.json', '');
   var elementMappings = (0, _parseEnvs.getJsonFromFile)("".concat((0, _parseEnvs.env)('PAGE_ELEMENTS_PATH')).concat(file));
@@ -51,9 +64,9 @@ var worldParameters = {
   emailsConfig: emailsConfig
 };
 var common = "./src/features/**/*.feature                 --require-module ts-node/register                 --require ./src/step-definitions/**/**/*.ts                 --world-parameters ".concat(JSON.stringify(worldParameters), "                 -f json:./reports/report.json                 --format progress-bar                 --parallel ").concat((0, _parseEnvs.env)('PARALLEL'), "                 --retry ").concat((0, _parseEnvs.env)('RETRY'));
-var dev = "".concat(common, " --tags '@dev'");
+var dev = (0, _tagHelper.generateCucumberRuntimeTag)(common, environment, getEnvList(), 'dev');
 exports.dev = dev;
-var smoke = "".concat(common, " --tags '@smoke'");
+var smoke = (0, _tagHelper.generateCucumberRuntimeTag)(common, environment, getEnvList(), 'smoke');
 exports.smoke = smoke;
-var regression = "".concat(common, " --tags '@regression'");
+var regression = (0, _tagHelper.generateCucumberRuntimeTag)(common, environment, getEnvList(), 'regression');
 exports.regression = regression;

@@ -13,7 +13,7 @@ var _parseEnvs = require("../../env/parseEnvs");
 
 var _cucumber = require("@cucumber/cucumber");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -67,7 +67,7 @@ var ScenarioWorld = /*#__PURE__*/function (_World) {
             case 0:
               automationBrowsers = ['chromium', 'firefox', 'webkit'];
               automationBrowser = (0, _parseEnvs.env)('UI_AUTOMATION_BROWSER');
-              browserType = _playwright.default[automationBrowser];
+              browserType = _playwright["default"][automationBrowser];
               _context.next = 5;
               return browserType.launch({
                 devtools: process.env.DEVTOOLS !== 'false',
