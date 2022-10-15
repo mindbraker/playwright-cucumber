@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getJsonFromFile = exports.envNumber = exports.env = void 0;
 
-const env = key => {
-  const value = process.env[key];
+var env = function env(key) {
+  var value = process.env[key];
 
   if (!value) {
-    throw Error(`No environment variable found for ${key}`);
+    throw Error("No environment variable found for ".concat(key));
   }
 
   return value;
@@ -17,13 +17,13 @@ const env = key => {
 
 exports.env = env;
 
-const getJsonFromFile = path => {
-  return require(`${process.cwd()}${path}`);
+var getJsonFromFile = function getJsonFromFile(path) {
+  return require("".concat(process.cwd()).concat(path));
 };
 
 exports.getJsonFromFile = getJsonFromFile;
 
-const envNumber = key => {
+var envNumber = function envNumber(key) {
   return Number(env[key]);
 };
 

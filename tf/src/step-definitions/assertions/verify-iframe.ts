@@ -4,6 +4,7 @@ import { ScenarioWorld } from '../setup/world';
 import { getElementLocator } from '../../support/web-element-helper';
 import { ElementKey } from '../../env/global';
 import { getIframeElement } from '../../support/html-behavior';
+import { logger } from '../../logger';
 
 Then(
     /^the "([^"]*)" on the "([^"]*)" iframe should( not)? be displayed$/,
@@ -18,10 +19,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} on the ${iframeName} iframe should${
                 negate ? ' not' : ''
-            } be displayed`,
+            } be displayed ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -62,10 +63,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} should${
                 negate ? ' not' : ''
-            } contain the text ${expectedElementText}`,
+            } contain the text ${expectedElementText} ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -107,10 +108,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} should${
                 negate ? ' not' : ''
-            } equal the text ${expectedElementText}`,
+            } equal the text: ${expectedElementText} ✨`,
         );
 
         const elementIdentifier = getElementLocator(

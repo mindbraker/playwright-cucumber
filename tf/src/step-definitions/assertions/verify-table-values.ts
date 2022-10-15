@@ -3,6 +3,7 @@ import { getElementLocator } from '../../support/web-element-helper';
 import { ScenarioWorld } from '../setup/world';
 import { waitFor } from '../../support/wait-for-behavior';
 import { ElementKey } from '../../env/global';
+import { logger } from '../../logger';
 
 Then(
     /^the "([^"]*)" table should( not)? equal the following:$/,
@@ -17,8 +18,8 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
-            `${elementKey} table should${
+        logger.log(
+            `🔎 ${elementKey} table should${
                 negate ? ' not' : ''
             } equal the following:`,
         );

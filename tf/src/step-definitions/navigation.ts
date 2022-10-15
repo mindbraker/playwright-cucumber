@@ -1,5 +1,6 @@
 import { Given } from '@cucumber/cucumber';
 import { PageId } from '../env/global';
+import { logger } from '../logger';
 import {
     navigateToPage,
     currentPathMatchesPageId,
@@ -16,7 +17,7 @@ Given(
             globalConfig,
         } = this;
 
-        console.log(`📜 Current page should be: ${pageId}`);
+        logger.log(`📜 Current page: ${pageId}`);
 
         await navigateToPage(page, pageId, globalConfig);
 
@@ -34,7 +35,7 @@ Given(
             globalConfig,
         } = this;
 
-        console.log(`🔨 Navigating to the ${pageId} page`);
+        logger.log(`🔨 Navigating to the ${pageId} page`);
 
         await waitFor(() =>
             currentPathMatchesPageId(page, pageId, globalConfig),
@@ -49,7 +50,7 @@ Given(
             screen: { page },
             globalConfig,
         } = this;
-        console.log(`🌐 I refresh the ${pageId}`);
+        logger.log(`🌐 Refreshing ${pageId}`);
 
         await reloadPage(page);
 

@@ -4,6 +4,7 @@ import { getAttributeText, getValue } from '../../support/html-behavior';
 import { getElementLocator } from '../../support/web-element-helper';
 import { ScenarioWorld } from '../setup/world';
 import { waitFor } from '../../support/wait-for-behavior';
+import { logger } from '../../logger';
 
 Then(
     /^the "([^"]*)" should( not)? contain the text "(.*)"$/,
@@ -18,10 +19,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} should${
                 negate ? ' not' : ''
-            } contain text: ${expectedElementText} 💬`,
+            } contain text: ${expectedElementText} ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -32,6 +33,8 @@ Then(
 
         await waitFor(async () => {
             const elementText = await page.textContent(elementIdentifier);
+            logger.debug('🤖 elementText:', elementText);
+            logger.debug('🤖 expectedElementText:', expectedElementText);
             return elementText?.includes(expectedElementText) === !negate;
         });
     },
@@ -50,10 +53,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} should${
                 negate ? ' not' : ''
-            } equal text: ${expectedElementText} 💬`,
+            } equal text: ${expectedElementText} ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -82,10 +85,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} should${
                 negate ? ' not' : ''
-            } contain value: ${elementValue} 💬`,
+            } contain value: ${elementValue} ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -114,10 +117,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} should${
                 negate ? ' not' : ''
-            } equal value: ${elementValue} 💬`,
+            } equal value: ${elementValue} ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -145,8 +148,8 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
-            `🔎 ${elementKey} should${negate ? ' not' : ''} be enabled 💬`,
+        logger.log(
+            `🔎 ${elementKey} should${negate ? ' not' : ''} be enabled ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -176,10 +179,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementPosition} ${elementKey} should${
                 negate ? ' not' : ''
-            } contain the text ${expectedElementText}`,
+            } contain the text: ${expectedElementText} ✨`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -213,10 +216,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
-            `${elementKey} ${attribute} attribute should${
+        logger.log(
+            `🔎 ${elementKey} ${attribute} attribute should${
                 negate ? ' not' : ''
-            } contain the text ${expectedElementText}`,
+            } contain the text: ${expectedElementText} ✨`,
         );
 
         const elementIdentifier = getElementLocator(

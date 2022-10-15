@@ -3,7 +3,7 @@ import { getElementLocator } from '../../support/web-element-helper';
 import { ScenarioWorld } from '../setup/world';
 import { waitFor } from '../../support/wait-for-behavior';
 import { ElementKey } from '../../env/global';
-import { getJsonFromFile } from '../../env/parseEnvs';
+import { logger } from '../../logger';
 
 Then(
     /^the "([^"]*)" should( not)? be displayed$/,
@@ -17,7 +17,7 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementKey} should${negate ? ' not' : ''} be displayed ✨`,
         );
 
@@ -47,7 +47,7 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `🔎 ${elementPosition} ${elementKey} should${
                 negate ? ' not' : ''
             } be displayed ✨`,
@@ -82,10 +82,10 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
-            `I should${
+        logger.log(
+            `🔎 ${count} ${elementKey} should${
                 negate ? ' not' : ''
-            } see ${count} ${elementKey} displayed`,
+            } displayed ✨`,
         );
 
         const elementIdentifier = getElementLocator(

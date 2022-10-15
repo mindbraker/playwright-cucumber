@@ -1,5 +1,6 @@
 import { Page } from 'playwright';
 import { GlobalConfig, PageId } from '../env/global';
+import { logger } from '../logger';
 
 export const navigateToPage = async (
     page: Page,
@@ -9,13 +10,13 @@ export const navigateToPage = async (
     const { UI_AUTOMATION_HOST: hostname = 'development' } = process.env;
 
     const hostpath = hostsConfig[`${hostname}`];
-    console.log('🌐 Hostpath:', hostpath);
+    logger.log('🌐 URL:', hostpath);
 
     const url = new URL(hostpath);
 
     const pagesConfigItem = pagesConfig[pageId];
     url.pathname = pagesConfigItem.route;
-    console.log('🌐 Pages route:', url.pathname);
+    logger.log('🌐 Page path:', url.pathname);
 
     await page.goto(url.href);
 };

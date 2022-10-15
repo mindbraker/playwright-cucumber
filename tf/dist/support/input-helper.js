@@ -5,23 +5,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.parseInput = void 0;
 
-const isLookupVariable = (input, lookupTrigger) => {
+var isLookupVariable = function isLookupVariable(input, lookupTrigger) {
   return !!(lookupTrigger && input.startsWith(lookupTrigger));
 };
 
-const getLookupVariable = (input, lookupTrigger, config) => {
-  const key = input.slice(lookupTrigger.length);
-  const lookupValue = config.usernamesConfig[key] ?? process.env[key];
+var getLookupVariable = function getLookupVariable(input, lookupTrigger, config) {
+  var _config$usernamesConf;
+
+  var key = input.slice(lookupTrigger.length);
+  var lookupValue = (_config$usernamesConf = config.usernamesConfig[key]) !== null && _config$usernamesConf !== void 0 ? _config$usernamesConf : process.env[key];
 
   if (!lookupValue) {
-    throw Error(`🛑 Could not get ${input} lookup trigger 😥`);
+    throw Error("\uD83D\uDED1 Could not get ".concat(input, " lookup trigger \uD83D\uDE25"));
   }
 
   return lookupValue;
 };
 
-const parseInput = (input, config) => {
-  const lookupTrigger = process.env.VAR_LOOKUP_TRIGGER ?? '$.';
+var parseInput = function parseInput(input, config) {
+  var _process$env$VAR_LOOK;
+
+  var lookupTrigger = (_process$env$VAR_LOOK = process.env.VAR_LOOKUP_TRIGGER) !== null && _process$env$VAR_LOOK !== void 0 ? _process$env$VAR_LOOK : '$.';
   return isLookupVariable(input, lookupTrigger) ? getLookupVariable(input, lookupTrigger, config) : input;
 };
 

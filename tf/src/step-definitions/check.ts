@@ -4,6 +4,7 @@ import { checkElement, uncheckElement } from '../support/html-behavior';
 import { waitFor } from '../support/wait-for-behavior';
 import { getElementLocator } from '../support/web-element-helper';
 import { ElementKey } from '../env/global';
+import { logger } from '../logger';
 
 Then(
     /^I (check)?(uncheck)? the "([^"]*)" (?:check box|radio button|switch)$/,
@@ -18,9 +19,9 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
-            `📻 ${elementKey} check box|radio|switch button will be ${
-                unchecked ? 'uncheck' : 'check'
+        logger.log(
+            `📻 ${elementKey} check box | radio | switch button will be ${
+                unchecked ? 'unchecked' : 'checked'
             } 👌`,
         );
 

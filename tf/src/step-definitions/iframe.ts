@@ -4,6 +4,7 @@ import { getElementLocator } from '../support/web-element-helper';
 import { ScenarioWorld } from './setup/world';
 import { ElementKey } from '../env/global';
 import { getIframeElement, inputValueOnIframe } from '../support/html-behavior';
+import { logger } from '../logger';
 
 Then(
     /^I fill in the "([^"]*)" input on the "([^"]*)" iframe with "([^"]*)"$/,
@@ -18,7 +19,7 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(
+        logger.log(
             `📝 Filling ${elementKey} input on the ${iframeName} iframe with ${inputValue}`,
         );
 

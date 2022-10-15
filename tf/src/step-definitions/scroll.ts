@@ -4,6 +4,7 @@ import { waitFor } from '../support/wait-for-behavior';
 import { getElementLocator } from '../support/web-element-helper';
 import { ElementKey } from '../env/global';
 import { scrollIntoView } from '../support/html-behavior';
+import { logger } from '../logger';
 
 Then(
     /^I scroll to the "([^"]*)"$/,
@@ -13,7 +14,7 @@ Then(
             globalConfig,
         } = this;
 
-        console.log(`I scroll to the ${elementKey}`);
+        logger.log(`🔎 Scrolling to the ${elementKey} ✨`);
 
         const elementIdentifier = getElementLocator(
             page,

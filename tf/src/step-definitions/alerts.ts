@@ -1,4 +1,5 @@
 import { When } from '@cucumber/cucumber';
+import { logger } from '../logger';
 import { ScenarioWorld } from './setup/world';
 
 When(
@@ -12,8 +13,8 @@ When(
             screen: { page },
         } = this;
 
-        console.log(
-            `I click ${
+        logger.log(
+            `🖱 Clicking ${
                 dismissDialog ? 'dismiss ' : 'accept '
             }on the alert dialog`,
         );
