@@ -38,8 +38,9 @@ _dotenv.default.config({
 });
 
 var hostsConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('HOSTS_URLS_PATH'));
-var pagesConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('PAGE_URLS_PATH'));
-var emailsConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('EMAILS_URL_PATH'));
+var pagesConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('PAGE_URLS_PATH')); // const emailsConfig: EmailsConfig = getJsonFromFile(env('EMAILS_URL_PATH'));
+
+var usernamesConfig = (0, _parseEnvs.getJsonFromFile)((0, _parseEnvs.env)('USERNAMES_URL_PATH'));
 var mappingFiles = fs.readdirSync("".concat(process.cwd()).concat((0, _parseEnvs.env)('PAGE_ELEMENTS_PATH')));
 
 var getEnvList = function getEnvList() {
@@ -61,7 +62,8 @@ var worldParameters = {
   hostsConfig: hostsConfig,
   pagesConfig: pagesConfig,
   pageElementMappings: pageElementMappings,
-  emailsConfig: emailsConfig
+  // emailsConfig,
+  usernamesConfig: usernamesConfig
 };
 var common = "./src/features/**/*.feature                 --require-module ts-node/register                 --require ./src/step-definitions/**/**/*.ts                 --world-parameters ".concat(JSON.stringify(worldParameters), "                 -f json:./reports/report.json                 --format progress-bar                 --parallel ").concat((0, _parseEnvs.env)('PARALLEL'), "                 --retry ").concat((0, _parseEnvs.env)('RETRY'));
 var dev = (0, _tagHelper.generateCucumberRuntimeTag)(common, environment, getEnvList(), 'dev');

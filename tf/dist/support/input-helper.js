@@ -10,10 +10,11 @@ var isLookupVariable = function isLookupVariable(input, lookupTrigger) {
 };
 
 var getLookupVariable = function getLookupVariable(input, lookupTrigger, config) {
-  var _config$emailsConfig$;
+  var _config$usernamesConf;
 
-  var key = input.slice(lookupTrigger.length);
-  var lookupValue = (_config$emailsConfig$ = config.emailsConfig[key]) !== null && _config$emailsConfig$ !== void 0 ? _config$emailsConfig$ : process.env[key];
+  var key = input.slice(lookupTrigger.length); // const lookupValue = config.emailsConfig[key] ?? process.env[key];
+
+  var lookupValue = (_config$usernamesConf = config.usernamesConfig[key]) !== null && _config$usernamesConf !== void 0 ? _config$usernamesConf : process.env[key];
 
   if (!lookupValue) {
     throw Error("\uD83D\uDED1 Could not get ".concat(input, " lookup trigger \uD83D\uDE25"));
