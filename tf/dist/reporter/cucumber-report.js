@@ -12,7 +12,7 @@ _dotenv.default.config({
   path: (0, _parseEnvs.env)('COMMON_CONFIG_FILE')
 });
 
-var options = {
+const options = {
   theme: 'bootstrap',
   jsonFile: (0, _parseEnvs.env)('JSON_REPORT_FILE'),
   output: (0, _parseEnvs.env)('HTML_REPORT_FILE'),

@@ -4,7 +4,6 @@ import {
     GlobalConfig,
     HostsConfig,
     PagesConfig,
-    /*EmailsConfig,*/
     PageElementMappings,
     UsernamesConfig,
 } from './env/global';
@@ -18,7 +17,6 @@ dotenv.config({ path: `${env('ENV_PATH')}${environment}.env` });
 
 const hostsConfig: HostsConfig = getJsonFromFile(env('HOSTS_URLS_PATH'));
 const pagesConfig: PagesConfig = getJsonFromFile(env('PAGE_URLS_PATH'));
-// const emailsConfig: EmailsConfig = getJsonFromFile(env('EMAILS_URL_PATH'));
 const usernamesConfig: UsernamesConfig = getJsonFromFile(
     env('USERNAMES_URL_PATH'),
 );
@@ -52,7 +50,6 @@ const worldParameters: GlobalConfig = {
     hostsConfig,
     pagesConfig,
     pageElementMappings,
-    // emailsConfig,
     usernamesConfig,
 };
 

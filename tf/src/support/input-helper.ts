@@ -10,7 +10,6 @@ const getLookupVariable = (
     config: GlobalConfig,
 ): string => {
     const key = input.slice(lookupTrigger.length);
-    // const lookupValue = config.emailsConfig[key] ?? process.env[key];
     const lookupValue = config.usernamesConfig[key] ?? process.env[key];
 
     if (!lookupValue) {

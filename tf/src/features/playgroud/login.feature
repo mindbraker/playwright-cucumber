@@ -11,12 +11,12 @@ Feature: As a user I can interact with login forms
     And the "email" should contain the value "admin@hasashi.net"
     And the "password" should contain the value "<password>"
 
-    @localhost
+    @development
     Examples: 
       | password     |
       | Password1234 |
 
-    @production
+    @formal
     Examples: 
       | password |
       | DSa2dEx  |

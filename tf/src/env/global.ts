@@ -8,13 +8,11 @@ export type PageElementMappings = Record<
     Record<ElementKey, ElementLocator>
 >;
 export type GlobalVariables = { [key: string]: string };
-// export type EmailsConfig = Record<string, string>;
 export type UsernamesConfig = Record<string, string>;
 
 export type GlobalConfig = {
     hostsConfig: HostsConfig;
     pagesConfig: PagesConfig;
     pageElementMappings: PageElementMappings;
-    // emailsConfig: EmailsConfig;
     usernamesConfig: UsernamesConfig;
 };
