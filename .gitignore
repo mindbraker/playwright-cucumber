@@ -3,3 +3,4 @@ tf/node_modules/*
 node_modules/*
 tf/reports/*
 tf/trace.zip
+tf/dist/*
