@@ -1,4 +1,4 @@
-import { Frame, Page } from 'playwright';
+import { ElementHandle, Frame, Page } from 'playwright';
 import { ElementLocator } from '../env/global';
 
 export const clickElement = async (
@@ -110,4 +110,64 @@ export const scrollIntoView = async (
 ): Promise<void> => {
     const element = page.locator(elementIdentifier);
     await element.scrollIntoViewIfNeeded();
+};
+
+export const elementChecked = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+): Promise<boolean | null> => {
+    const checked = await page.isChecked(elementIdentifier);
+    return checked;
+};
+
+export const getElementText = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+): Promise<string | null> => {
+    const text = await page.textContent(elementIdentifier);
+    return text;
+};
+
+export const elementEnabled = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+): Promise<boolean | null> => {
+    const enabled = await page.isEnabled(elementIdentifier);
+    return enabled;
+};
+
+export const getElementTextAtIndex = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+    index: number,
+): Promise<string | null> => {
+    const textAtIndex = await page.textContent(
+        `${elementIdentifier}>>nth=${index}`,
+    );
+    return textAtIndex;
+};
+
+export const getElement = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+): Promise<ElementHandle<SVGElement | HTMLElement> | null> => {
+    const element = await page.$(elementIdentifier);
+    return element;
+};
+
+export const getElementAtIndex = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+    index: number,
+): Promise<ElementHandle<SVGElement | HTMLElement> | null> => {
+    const elementAtIndex = await page.$(`${elementIdentifier}>>nth=${index}`);
+    return elementAtIndex;
+};
+
+export const getElements = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+): Promise<ElementHandle<SVGElement | HTMLElement>[]> => {
+    const elements = await page.$$(elementIdentifier);
+    return elements;
 };
