@@ -44,7 +44,7 @@ const createLogger = (logLevel: LogLevel): Logger => {
     ) as Logger;
 };
 
-const loglLevelIsT = <T extends string>(
+const logLevelIsT = <T extends string>(
     logLevel: string,
     options: readonly string[],
 ): logLevel is T => {
@@ -52,13 +52,13 @@ const loglLevelIsT = <T extends string>(
 };
 
 export const stringIsOfOptions = <T extends string>(
-    loglLevel: string,
+    logLevel: string,
     options: readonly string[],
 ): T => {
-    if (loglLevelIsT(loglLevel, options)) {
-        return loglLevel as T;
+    if (logLevelIsT(logLevel, options)) {
+        return logLevel as T;
     }
-    throw Error(`🧨 Logger '${loglLevel} needs to be one of: ${options} 💥`);
+    throw Error(`🧨 Logger '${logLevel}' needs to be one of ${options} 🧨`);
 };
 
 let loggerSingleton: Logger | null = null;
@@ -68,6 +68,5 @@ export const getLogger = (): Logger => {
         const validLogLevel = stringIsOfOptions<LogLevel>(logLevel, LOG_LEVELS);
         loggerSingleton = createLogger(validLogLevel);
     }
-
     return loggerSingleton;
 };
