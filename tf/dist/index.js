@@ -9,13 +9,9 @@ var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _parseEnv = require("./env/parseEnv");
 
-var fs = _interopRequireWildcard(require("fs"));
+var _fs = _interopRequireDefault(require("fs"));
 
 var _tagHelper = require("./support/tag-helper");
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,7 +28,8 @@ _dotenv.default.config({
 const hostsConfig = (0, _parseEnv.getJsonFromFile)((0, _parseEnv.env)('HOSTS_URLS_PATH'));
 const pagesConfig = (0, _parseEnv.getJsonFromFile)((0, _parseEnv.env)('PAGE_URLS_PATH'));
 const usernamesConfig = (0, _parseEnv.getJsonFromFile)((0, _parseEnv.env)('USERNAMES_URL_PATH'));
-const mappingFiles = fs.readdirSync(`${process.cwd()}${(0, _parseEnv.env)('PAGE_ELEMENTS_PATH')}`);
+
+const mappingFiles = _fs.default.readdirSync(`${process.cwd()}${(0, _parseEnv.env)('PAGE_ELEMENTS_PATH')}`);
 
 const getEnvList = () => {
   const envList = Object.keys(hostsConfig);
@@ -60,8 +57,8 @@ const worldParameters = {
 const common = `./src/features/**/*.feature \
                 --require-module ts-node/register \
                 --require ./src/step-definitions/**/**/*.ts \
-                --world-parameters ${JSON.stringify(worldParameters)} \
                 -f json:./reports/report.json \
+                --world-parameters ${JSON.stringify(worldParameters)} \
                 --format progress-bar \
                 --parallel ${(0, _parseEnv.env)('PARALLEL')} \
                 --retry ${(0, _parseEnv.env)('RETRY')}`;

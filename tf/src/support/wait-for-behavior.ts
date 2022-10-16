@@ -1,3 +1,6 @@
+import { Page } from 'playwright';
+import { ElementLocator } from '../env/global';
+import { envNumber } from '../env/parseEnv';
 import { logger } from '../logger';
 
 export const waitFor = async <T>(
@@ -19,4 +22,36 @@ export const waitFor = async <T>(
     }
 
     throw new Error(`🔔 Wait time of ${timeout}ms exceeded 🙁`);
+};
+
+export const waitForSelector = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+): Promise<boolean> => {
+    try {
+        await page.waitForSelector(elementIdentifier, {
+            state: 'visible',
+            timeout: envNumber('SELECTOR_TIMEOUT'),
+        });
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const waitForSelectorOnPage = async (
+    page: Page,
+    elementIdentifier: ElementLocator,
+    pages: Array<Page>,
+    pageIndex: number,
+): Promise<boolean> => {
+    try {
+        await pages[pageIndex].waitForSelector(elementIdentifier, {
+            state: 'visible',
+            timeout: envNumber('SELECTOR_TIMEOUT'),
+        });
+        return true;
+    } catch (e) {
+        return false;
+    }
 };

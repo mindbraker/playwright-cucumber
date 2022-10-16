@@ -21,11 +21,9 @@ var _logger = require("../logger");
 
   const elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
   await (0, _waitForBehavior.waitFor)(async () => {
-    const result = await page.waitForSelector(elementIdentifier, {
-      state: 'visible'
-    });
+    const elementStable = await (0, _waitForBehavior.waitForSelector)(page, elementIdentifier);
 
-    if (result) {
+    if (elementStable) {
       const elementText = await page.textContent(elementIdentifier);
 
       if (elementText != null) {
@@ -33,6 +31,6 @@ var _logger = require("../logger");
       }
     }
 
-    return result;
+    return elementStable;
   });
 });

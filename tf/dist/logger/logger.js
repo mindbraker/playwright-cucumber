@@ -44,16 +44,16 @@ const createLogger = logLevel => {
   }), {});
 };
 
-const loglLevelIsT = (logLevel, options) => {
+const logLevelIsT = (logLevel, options) => {
   return options.includes(logLevel);
 };
 
-const stringIsOfOptions = (loglLevel, options) => {
-  if (loglLevelIsT(loglLevel, options)) {
-    return loglLevel;
+const stringIsOfOptions = (logLevel, options) => {
+  if (logLevelIsT(logLevel, options)) {
+    return logLevel;
   }
 
-  throw Error(`🧨 Logger '${loglLevel} needs to be one of: ${options} 💥`);
+  throw Error(`🧨 Logger '${logLevel}' needs to be one of ${options} 💥`);
 };
 
 exports.stringIsOfOptions = stringIsOfOptions;
