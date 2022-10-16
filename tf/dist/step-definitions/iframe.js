@@ -23,17 +23,16 @@ var _logger = require("../logger");
   const elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
   const iframeIdentifier = (0, _webElementHelper.getElementLocator)(page, iframeName, globalConfig);
   await (0, _waitForBehavior.waitFor)(async () => {
-    const elementIframe = await (0, _htmlBehavior.getIframeElement)(page, iframeIdentifier);
-    const result = await page.waitForSelector(iframeIdentifier, {
-      state: 'visible'
-    });
+    const iframeStable = await (0, _waitForBehavior.waitForSelector)(page, iframeIdentifier);
 
-    if (result) {
+    if (iframeStable) {
+      const elementIframe = await (0, _htmlBehavior.getIframeElement)(page, iframeIdentifier);
+
       if (elementIframe) {
         await (0, _htmlBehavior.inputValueOnIframe)(elementIframe, elementIdentifier, inputValue);
       }
     }
 
-    return result;
+    return iframeStable;
   });
 });

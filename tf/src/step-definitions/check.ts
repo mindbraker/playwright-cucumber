@@ -1,7 +1,7 @@
 import { Then } from '@cucumber/cucumber';
 import { ScenarioWorld } from './setup/world';
 import { checkElement, uncheckElement } from '../support/html-behavior';
-import { waitFor } from '../support/wait-for-behavior';
+import { waitFor, waitForSelector } from '../support/wait-for-behavior';
 import { getElementLocator } from '../support/web-element-helper';
 import { ElementKey } from '../env/global';
 import { logger } from '../logger';
@@ -32,17 +32,19 @@ Then(
         );
 
         await waitFor(async () => {
-            const result = await page.waitForSelector(elementIdentifier, {
-                state: 'visible',
-            });
-            if (result) {
+            const elementStable = await waitForSelector(
+                page,
+                elementIdentifier,
+            );
+
+            if (elementStable) {
                 if (!!unchecked) {
                     await uncheckElement(page, elementIdentifier);
                 } else {
                     await checkElement(page, elementIdentifier);
                 }
             }
-            return result;
+            return elementStable;
         });
     },
 );

@@ -24,16 +24,14 @@ var _logger = require("../logger");
 
   const elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
   await (0, _waitForBehavior.waitFor)(async () => {
-    const result = await page.waitForSelector(elementIdentifier, {
-      state: 'visible'
-    });
+    const elementStable = await (0, _waitForBehavior.waitForSelector)(page, elementIdentifier);
 
-    if (result) {
+    if (elementStable) {
       const parsedInput = (0, _inputHelper.parseInput)(input, globalConfig);
       await (0, _htmlBehavior.inputValue)(page, elementIdentifier, parsedInput);
     }
 
-    return result;
+    return elementStable;
   });
 });
 (0, _cucumber.Then)(/^I select the "([^"]*)" option from "([^"]*)"$/, async function (option, elementKey) {
@@ -48,14 +46,12 @@ var _logger = require("../logger");
 
   const elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
   await (0, _waitForBehavior.waitFor)(async () => {
-    const result = await page.waitForSelector(elementIdentifier, {
-      state: 'visible'
-    });
+    const elementStable = await (0, _waitForBehavior.waitForSelector)(page, elementIdentifier);
 
-    if (result) {
+    if (elementStable) {
       await (0, _htmlBehavior.selectValue)(page, elementIdentifier, option);
     }
 
-    return result;
+    return elementStable;
   });
 });

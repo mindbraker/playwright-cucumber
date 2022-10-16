@@ -25,14 +25,12 @@ var _logger = require("../logger");
   const elementIdentifier = (0, _webElementHelper.getElementLocator)(page, elementKey, globalConfig);
   await (0, _waitForBehavior.waitFor)(async () => {
     let pages = context.pages();
-    const result = await pages[pageIndex].waitForSelector(elementIdentifier, {
-      state: 'visible'
-    });
+    const elementStable = await (0, _waitForBehavior.waitForSelectorOnPage)(page, elementIdentifier, pages, pageIndex);
 
-    if (result) {
+    if (elementStable) {
       await (0, _htmlBehavior.inputValueOnPage)(pages, pageIndex, elementIdentifier, inputValue);
     }
 
-    return result;
+    return elementStable;
   });
 });

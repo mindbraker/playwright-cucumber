@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.waitFor = void 0;
+exports.waitForSelectorOnPage = exports.waitForSelector = exports.waitFor = void 0;
+
+var _parseEnv = require("../env/parseEnv");
 
 var _logger = require("../logger");
 
@@ -29,3 +31,31 @@ const waitFor = async (predicate, options) => {
 };
 
 exports.waitFor = waitFor;
+
+const waitForSelector = async (page, elementIdentifier) => {
+  try {
+    await page.waitForSelector(elementIdentifier, {
+      state: 'visible',
+      timeout: (0, _parseEnv.envNumber)('SELECTOR_TIMEOUT')
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+exports.waitForSelector = waitForSelector;
+
+const waitForSelectorOnPage = async (page, elementIdentifier, pages, pageIndex) => {
+  try {
+    await pages[pageIndex].waitForSelector(elementIdentifier, {
+      state: 'visible',
+      timeout: (0, _parseEnv.envNumber)('SELECTOR_TIMEOUT')
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+exports.waitForSelectorOnPage = waitForSelectorOnPage;

@@ -1,6 +1,6 @@
 Feature: As a user I can interact with checkboxes
 
-  @dev @smoke @regression
+  @smoke @regression
   Scenario: As a user I can interact and assert on checkboxes
     Given I am on the "home" page
     And I click the "playground" button
