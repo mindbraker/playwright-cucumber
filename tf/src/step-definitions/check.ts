@@ -38,7 +38,9 @@ Then(
             if (result) {
                 if (!!unchecked) {
                     await uncheckElement(page, elementIdentifier);
-                } else await checkElement(page, elementIdentifier);
+                } else {
+                    await checkElement(page, elementIdentifier);
+                }
             }
             return result;
         });
