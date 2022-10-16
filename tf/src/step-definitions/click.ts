@@ -8,17 +8,17 @@ import { logger } from '../logger';
 
 When(
     /^I click the "([^"]*)" (?:button|link|icon|element)$/,
-    async function (this: ScenarioWorld, ElementKey) {
+    async function (this: ScenarioWorld, elementKey: ElementKey) {
         const {
             screen: { page },
             globalConfig,
         } = this;
 
-        logger.log(`🖱 Clicking ${ElementKey} button | link | icon | element`);
+        logger.log(`🖱 Clicking ${elementKey} button | link | icon | element`);
 
         const elementIdentifier = getElementLocator(
             page,
-            ElementKey,
+            elementKey,
             globalConfig,
         );
 

@@ -7,7 +7,7 @@ import {
     PageElementMappings,
     UsernamesConfig,
 } from './env/global';
-import * as fs from 'fs';
+import fs from 'fs';
 import { generateCucumberRuntimeTag } from './support/tag-helper';
 
 const environment = env('NODE_ENV');
@@ -56,8 +56,8 @@ const worldParameters: GlobalConfig = {
 const common = `./src/features/**/*.feature \
                 --require-module ts-node/register \
                 --require ./src/step-definitions/**/**/*.ts \
-                --world-parameters ${JSON.stringify(worldParameters)} \
                 -f json:./reports/report.json \
+                --world-parameters ${JSON.stringify(worldParameters)} \
                 --format progress-bar \
                 --parallel ${env('PARALLEL')} \
                 --retry ${env('RETRY')}`;
