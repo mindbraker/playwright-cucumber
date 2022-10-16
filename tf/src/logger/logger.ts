@@ -1,4 +1,4 @@
-import { env } from '../env/parseEnvs';
+import { env } from '../env/parseEnv';
 
 const DEBUG = 'debug';
 const LOG = 'log';

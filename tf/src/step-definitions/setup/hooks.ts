@@ -1,6 +1,6 @@
 import { Before, After, setDefaultTimeout } from '@cucumber/cucumber';
 import { ScenarioWorld } from './world';
-import { env, envNumber } from '../../env/parseEnvs';
+import { env, envNumber } from '../../env/parseEnv';
 import { logger } from '../../logger';
 
 setDefaultTimeout(envNumber(`SCRIPT_TIMEOUT`));
