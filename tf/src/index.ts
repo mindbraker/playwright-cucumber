@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { env, getJsonFromFile } from './env/parseEnvs';
+import { env, getJsonFromFile } from './env/parseEnv';
 import {
     GlobalConfig,
     HostsConfig,

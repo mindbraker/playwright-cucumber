@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import reporter, { Options } from 'cucumber-html-reporter';
-import { env } from '../env/parseEnvs';
+import { env } from '../env/parseEnv';
 
 dotenv.config({ path: env('COMMON_CONFIG_FILE') });
 

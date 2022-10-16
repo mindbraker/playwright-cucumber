@@ -5,7 +5,7 @@ import playwright, {
     BrowserContext,
     BrowserType,
 } from 'playwright';
-import { env } from '../../env/parseEnvs';
+import { env } from '../../env/parseEnv';
 import { World, IWorldOptions, setWorldConstructor } from '@cucumber/cucumber';
 import { GlobalConfig, GlobalVariables } from '../../env/global';
 

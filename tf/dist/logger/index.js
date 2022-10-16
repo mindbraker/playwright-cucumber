@@ -7,5 +7,5 @@ exports.logger = void 0;
 
 var _logger = require("./logger");
 
-var logger = (0, _logger.getLogger)();
+const logger = (0, _logger.getLogger)();
 exports.logger = logger;
