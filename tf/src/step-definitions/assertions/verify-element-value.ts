@@ -5,7 +5,7 @@ import {
     getAttributeText,
     getElementText,
     getElementTextAtIndex,
-    getValue,
+    getElementValue,
 } from '../../support/html-behavior';
 import { getElementLocator } from '../../support/web-element-helper';
 import { ScenarioWorld } from '../setup/world';
@@ -136,7 +136,7 @@ Then(
             );
 
             if (elementStable) {
-                const elementAttribute = await getValue(
+                const elementAttribute = await getElementValue(
                     page,
                     elementIdentifier,
                 );
@@ -180,7 +180,7 @@ Then(
             );
 
             if (elementStable) {
-                const elementAttribute = await getValue(
+                const elementAttribute = await getElementValue(
                     page,
                     elementIdentifier,
                 );
