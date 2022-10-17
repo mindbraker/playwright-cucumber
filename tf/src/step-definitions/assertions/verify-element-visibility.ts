@@ -2,6 +2,11 @@ import { Then } from '@cucumber/cucumber';
 import { getElementLocator } from '../../support/web-element-helper';
 import { ScenarioWorld } from '../setup/world';
 import { waitFor } from '../../support/wait-for-behavior';
+import {
+    getElement,
+    getElementAtIndex,
+    getElements,
+} from '../../support/html-behavior';
 import { ElementKey } from '../../env/global';
 import { logger } from '../../logger';
 
@@ -28,7 +33,8 @@ Then(
         );
 
         await waitFor(async () => {
-            const isElementVisible = (await page.$(elementIdentifier)) != null;
+            const isElementVisible =
+                (await getElement(page, elementIdentifier)) != null;
             return isElementVisible === !negate;
         });
     },
@@ -63,7 +69,8 @@ Then(
 
         await waitFor(async () => {
             const isElementVisible =
-                (await page.$(`${elementIdentifier}>>nth=${index}`)) != null;
+                (await getElementAtIndex(page, elementIdentifier, index)) !=
+                null;
             return isElementVisible === !negate;
         });
     },
@@ -95,7 +102,7 @@ Then(
         );
 
         await waitFor(async () => {
-            const element = await page.$$(elementIdentifier);
+            const element = await getElements(page, elementIdentifier);
             return (Number(count) === element.length) === !negate;
         });
     },

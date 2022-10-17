@@ -1,9 +1,16 @@
 import { Then } from '@cucumber/cucumber';
-import { waitFor } from '../../support/wait-for-behavior';
+import {
+    waitFor,
+    waitForSelectorInIframe,
+} from '../../support/wait-for-behavior';
 import { ScenarioWorld } from '../setup/world';
 import { getElementLocator } from '../../support/web-element-helper';
 import { ElementKey } from '../../env/global';
-import { getIframeElement } from '../../support/html-behavior';
+import {
+    getElementWithinIframe,
+    getIframeElement,
+    getTextWithinIframeElement,
+} from '../../support/html-behavior';
 import { logger } from '../../logger';
 
 Then(
@@ -42,9 +49,23 @@ Then(
                 iframeIdentifier,
             );
 
-            const isElementVisible =
-                (await elementIframe?.$(elementIdentifier)) != null;
-            return isElementVisible === !negate;
+            if (elementIframe) {
+                const elementStable = await waitForSelectorInIframe(
+                    elementIframe,
+                    elementIdentifier,
+                );
+
+                if (elementStable) {
+                    const isElementVisible =
+                        getElementWithinIframe(
+                            elementIframe,
+                            elementIdentifier,
+                        ) != null;
+                    return isElementVisible === !negate;
+                } else {
+                    return elementStable;
+                }
+            }
         });
     },
 );
@@ -86,10 +107,24 @@ Then(
                 iframeIdentifier,
             );
 
-            const elementText = await elementIframe?.textContent(
-                elementIdentifier,
-            );
-            return elementText?.includes(expectedElementText) === !negate;
+            if (elementIframe) {
+                const elementStable = await waitForSelectorInIframe(
+                    elementIframe,
+                    elementIdentifier,
+                );
+
+                if (elementStable) {
+                    const elementText = await getTextWithinIframeElement(
+                        elementIframe,
+                        elementIdentifier,
+                    );
+                    return (
+                        elementText?.includes(expectedElementText) === !negate
+                    );
+                } else {
+                    return elementStable;
+                }
+            }
         });
     },
 );
@@ -131,10 +166,21 @@ Then(
                 iframeIdentifier,
             );
 
-            const elementText = await elementIframe?.textContent(
-                elementIdentifier,
-            );
-            return (elementText === expectedElementText) === !negate;
+            if (elementIframe) {
+                const elementStable = await waitForSelectorInIframe(
+                    elementIframe,
+                    elementIdentifier,
+                );
+
+                if (elementStable) {
+                    const elementText = await elementIframe?.textContent(
+                        elementIdentifier,
+                    );
+                    return (elementText === expectedElementText) === !negate;
+                } else {
+                    return elementStable;
+                }
+            }
         });
     },
 );
