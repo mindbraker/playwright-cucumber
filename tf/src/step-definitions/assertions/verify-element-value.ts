@@ -355,9 +355,9 @@ Then(
                     if (
                         elementText?.includes(expectedElementText) === !negate
                     ) {
-                        waitForResult.PASS;
+                        return waitForResult.PASS;
                     } else {
-                        waitForResult.FAIL;
+                        return waitForResult.FAIL;
                     }
                 } else {
                     return waitForResult.ELEMENT_NOT_AVAILABLE;

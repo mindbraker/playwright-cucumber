@@ -60,7 +60,7 @@ export const stringIsOfOptions = <T extends string>(
     if (logLevelIsT(logLevel, options)) {
         return logLevel as T;
     }
-    throw Error(`🧨 Logger '${logLevel}' needs to be one of ${options} 💥`);
+    throw Error(`🧨 Logger '${logLevel}' needs to be one of ${options}`);
 };
 
 let loggerSingleton: Logger | null = null;
