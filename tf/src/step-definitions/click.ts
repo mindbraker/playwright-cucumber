@@ -58,7 +58,7 @@ When(
         } = this;
 
         logger.log(
-            `🖱 Clicking ${elementPosition} ${elementKey} button | link | icon | element`,
+            `🐲 Clicking ${elementPosition} ${elementKey} button | link | icon | element`,
         );
 
         const elementIdentifier = getElementLocator(
