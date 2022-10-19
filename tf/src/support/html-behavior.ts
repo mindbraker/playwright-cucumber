@@ -1,4 +1,5 @@
-import { ElementHandle, Frame, Page } from 'playwright';
+import { ElementHandle } from '@playwright/test';
+import { Frame, Page } from 'playwright';
 import { ElementLocator } from '../env/global';
 
 // Interaction handles
@@ -132,8 +133,8 @@ export const getElementWithinIframe = async (
     elementIframe: Frame,
     elementIdentifier: ElementLocator,
 ): Promise<ElementHandle<SVGElement | HTMLElement> | null> => {
-    const visibileOnIframeElement = await elementIframe?.$(elementIdentifier);
-    return visibileOnIframeElement;
+    const visibleOnIframeElement = await elementIframe?.$(elementIdentifier);
+    return visibleOnIframeElement;
 };
 
 export const getTextWithinIframeElement = async (
