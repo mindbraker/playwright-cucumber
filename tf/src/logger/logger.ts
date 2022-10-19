@@ -2,9 +2,10 @@ import { env } from '../env/parseEnv';
 
 const DEBUG = 'debug';
 const LOG = 'log';
+const ERROR = 'error';
 const OFF = 'off';
 
-const LOG_LEVELS = [DEBUG, LOG, OFF] as const;
+const LOG_LEVELS = [DEBUG, LOG, ERROR, OFF] as const;
 export type LogLevel = typeof LOG_LEVELS[number];
 
 type LogFunction = (...msg: any[]) => void;
@@ -12,6 +13,7 @@ type LogFunction = (...msg: any[]) => void;
 type Logger = {
     debug: LogFunction;
     log: LogFunction;
+    error: LogFunction;
 };
 
 const logFuncAtLevels =
@@ -58,7 +60,7 @@ export const stringIsOfOptions = <T extends string>(
     if (logLevelIsT(logLevel, options)) {
         return logLevel as T;
     }
-    throw Error(`🧨 Logger '${logLevel}' needs to be one of ${options} 💥`);
+    throw Error(`🧨 Logger '${logLevel}' needs to be one of ${options}`);
 };
 
 let loggerSingleton: Logger | null = null;

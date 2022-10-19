@@ -1,9 +1,13 @@
 import { Then } from '@cucumber/cucumber';
-import { ScenarioWorld } from './setup/world';
-import { getElementLocator } from '../support/web-element-helper';
-import { waitFor, waitForSelector } from '../support/wait-for-behavior';
 import { ElementKey } from '../env/global';
 import { logger } from '../logger';
+import {
+    waitFor,
+    waitForResult,
+    waitForSelector,
+} from '../support/wait-for-behavior';
+import { getElementLocator } from '../support/web-element-helper';
+import { ScenarioWorld } from './setup/world';
 
 Then(
     /^I retrieve the "([^"]*)" text and store it as "([^"]*)" in global variables$/,
@@ -19,7 +23,7 @@ Then(
         } = this;
 
         logger.log(
-            `🔨 Retrieving ${elementKey} text and storing it as ${variableKey} in global variables 🤖`,
+            `🐲 Retrieving ${elementKey} text and storing it as ${variableKey} in global variables`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -28,19 +32,26 @@ Then(
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
+                    page,
+                    elementIdentifier,
+                );
 
-            if (elementStable) {
-                const elementText = await page.textContent(elementIdentifier);
-                if (elementText != null) {
-                    globalVariables[variableKey] = elementText;
+                if (elementStable) {
+                    const elementText = await page.textContent(
+                        elementIdentifier,
+                    );
+                    if (elementText != null) {
+                        globalVariables[variableKey] = elementText;
+                        return waitForResult.PASS;
+                    }
                 }
-            }
-            return elementStable;
-        });
+                return waitForResult.ELEMENT_NOT_AVAILABLE;
+            },
+            globalConfig,
+            { target: elementKey },
+        );
     },
 );

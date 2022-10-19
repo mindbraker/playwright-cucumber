@@ -2,8 +2,8 @@ import { Given } from '@cucumber/cucumber';
 import { PageId } from '../env/global';
 import { logger } from '../logger';
 import {
-    navigateToPage,
     currentPathMatchesPageId,
+    navigateToPage,
     reloadPage,
 } from '../support/navigation-behavior';
 import { waitFor } from '../support/wait-for-behavior';
@@ -21,8 +21,10 @@ Given(
 
         await navigateToPage(page, pageId, globalConfig);
 
-        await waitFor(() =>
-            currentPathMatchesPageId(page, pageId, globalConfig),
+        await waitFor(
+            () => currentPathMatchesPageId(page, pageId, globalConfig),
+            globalConfig,
+            { target: pageId, type: 'page' },
         );
     },
 );
@@ -37,8 +39,10 @@ Given(
 
         logger.log(`🔨 Navigating to the ${pageId} page`);
 
-        await waitFor(() =>
-            currentPathMatchesPageId(page, pageId, globalConfig),
+        await waitFor(
+            () => currentPathMatchesPageId(page, pageId, globalConfig),
+            globalConfig,
+            { target: pageId, type: 'page' },
         );
     },
 );
@@ -56,7 +60,10 @@ Given(
 
         await waitFor(
             () => currentPathMatchesPageId(page, pageId, globalConfig),
+            globalConfig,
             {
+                target: pageId,
+                type: 'page',
                 timeout: 30_000,
             },
         );

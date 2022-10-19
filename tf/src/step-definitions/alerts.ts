@@ -14,7 +14,7 @@ When(
         } = this;
 
         logger.log(
-            `🖱 Clicking ${
+            `🐲 Clicking ${
                 dismissDialog ? 'dismiss ' : 'accept '
             }on the alert dialog`,
         );

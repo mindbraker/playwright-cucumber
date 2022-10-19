@@ -1,5 +1,6 @@
 import { Then } from '@cucumber/cucumber';
 import { ElementKey } from '../../env/global';
+import { logger } from '../../logger';
 import {
     elementEnabled,
     getAttributeText,
@@ -7,10 +8,13 @@ import {
     getElementTextAtIndex,
     getElementValue,
 } from '../../support/html-behavior';
+import {
+    waitFor,
+    waitForResult,
+    waitForSelector,
+} from '../../support/wait-for-behavior';
 import { getElementLocator } from '../../support/web-element-helper';
 import { ScenarioWorld } from '../setup/world';
-import { waitFor, waitForSelector } from '../../support/wait-for-behavior';
-import { logger } from '../../logger';
 
 Then(
     /^the "([^"]*)" should( not)? contain the text "(.*)"$/,
@@ -26,9 +30,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} should${
+            `🐲 ${elementKey} should${
                 negate ? ' not' : ''
-            } contain text: ${expectedElementText} ✨`,
+            } contain text: ${expectedElementText}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -37,26 +41,44 @@ Then(
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
-
-            if (elementStable) {
-                const elementText = await getElementText(
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
                     page,
                     elementIdentifier,
                 );
 
-                logger.debug('🤖 elementText:', elementText);
-                logger.debug('🤖 expectedElementText:', expectedElementText);
+                if (elementStable) {
+                    const elementText = await getElementText(
+                        page,
+                        elementIdentifier,
+                    );
 
-                return elementText?.includes(expectedElementText) === !negate;
-            } else {
-                return elementStable;
-            }
-        });
+                    logger.debug('🤖 elementText:', elementText);
+                    logger.debug(
+                        '🤖 expectedElementText:',
+                        expectedElementText,
+                    );
+
+                    if (
+                        elementText?.includes(expectedElementText) === !negate
+                    ) {
+                        return waitForResult.PASS;
+                    } else {
+                        return waitForResult.FAIL;
+                    }
+                } else {
+                    return waitForResult.ELEMENT_NOT_AVAILABLE;
+                }
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} to${
+                    negate ? ' not' : ''
+                } contain the text ${expectedElementText}`,
+            },
+        );
     },
 );
 
@@ -74,9 +96,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} should${
+            `🐲 ${elementKey} should${
                 negate ? ' not' : ''
-            } equal text: ${expectedElementText} ✨`,
+            } equal text: ${expectedElementText}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -85,22 +107,35 @@ Then(
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
-
-            if (elementStable) {
-                const elementText = await getElementText(
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
                     page,
                     elementIdentifier,
                 );
-                return (elementText === expectedElementText) === !negate;
-            } else {
-                return elementStable;
-            }
-        });
+
+                if (elementStable) {
+                    const elementText = await getElementText(
+                        page,
+                        elementIdentifier,
+                    );
+                    if ((elementText === expectedElementText) === !negate) {
+                        return waitForResult.PASS;
+                    } else {
+                        return waitForResult.FAIL;
+                    }
+                } else {
+                    return waitForResult.ELEMENT_NOT_AVAILABLE;
+                }
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} to${
+                    negate ? ' not' : ''
+                } equal the text ${expectedElementText}`,
+            },
+        );
     },
 );
 
@@ -110,7 +145,7 @@ Then(
         this: ScenarioWorld,
         elementKey: ElementKey,
         negate: boolean,
-        elementValue: string,
+        expectedElementValue: string,
     ) {
         const {
             screen: { page },
@@ -118,9 +153,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} should${
+            `🐲 ${elementKey} should${
                 negate ? ' not' : ''
-            } contain value: ${elementValue} ✨`,
+            } contain value: ${expectedElementValue}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -129,22 +164,38 @@ Then(
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
-
-            if (elementStable) {
-                const elementAttribute = await getElementValue(
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
                     page,
                     elementIdentifier,
                 );
-                return elementAttribute?.includes(elementValue) === !negate;
-            } else {
-                return elementStable;
-            }
-        });
+
+                if (elementStable) {
+                    const elementAttribute = await getElementValue(
+                        page,
+                        elementIdentifier,
+                    );
+                    if (
+                        elementAttribute?.includes(expectedElementValue) ===
+                        !negate
+                    ) {
+                        return waitForResult.PASS;
+                    } else {
+                        return waitForResult.FAIL;
+                    }
+                } else {
+                    return waitForResult.ELEMENT_NOT_AVAILABLE;
+                }
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} to${
+                    negate ? ' not' : ''
+                } contain the value ${expectedElementValue}`,
+            },
+        );
     },
 );
 
@@ -154,7 +205,7 @@ Then(
         this: ScenarioWorld,
         elementKey: ElementKey,
         negate: boolean,
-        elementValue: string,
+        expectedElementValue: string,
     ) {
         const {
             screen: { page },
@@ -162,9 +213,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} should${
+            `🐲 ${elementKey} should${
                 negate ? ' not' : ''
-            } equal value: ${elementValue} ✨`,
+            } equal value: ${expectedElementValue}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -173,22 +224,38 @@ Then(
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
-
-            if (elementStable) {
-                const elementAttribute = await getElementValue(
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
                     page,
                     elementIdentifier,
                 );
-                return (elementAttribute === elementValue) === !negate;
-            } else {
-                return elementStable;
-            }
-        });
+
+                if (elementStable) {
+                    const elementAttribute = await getElementValue(
+                        page,
+                        elementIdentifier,
+                    );
+                    if (
+                        (elementAttribute === expectedElementValue) ===
+                        !negate
+                    ) {
+                        return waitForResult.PASS;
+                    } else {
+                        return waitForResult.FAIL;
+                    }
+                } else {
+                    return waitForResult.ELEMENT_NOT_AVAILABLE;
+                }
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} to${
+                    negate ? ' not' : ''
+                } equal value ${expectedElementValue}`,
+            },
+        );
     },
 );
 
@@ -204,9 +271,7 @@ Then(
             globalConfig,
         } = this;
 
-        logger.log(
-            `🔎 ${elementKey} should${negate ? ' not' : ''} be enabled ✨`,
-        );
+        logger.log(`🐲 ${elementKey} should${negate ? ' not' : ''} be enabled`);
 
         const elementIdentifier = getElementLocator(
             page,
@@ -214,22 +279,35 @@ Then(
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
-
-            if (elementStable) {
-                const isElementEnabled = await elementEnabled(
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
                     page,
                     elementIdentifier,
                 );
-                return isElementEnabled === !negate;
-            } else {
-                return elementStable;
-            }
-        });
+
+                if (elementStable) {
+                    const isElementEnabled = await elementEnabled(
+                        page,
+                        elementIdentifier,
+                    );
+                    if (isElementEnabled === !negate) {
+                        return waitForResult.PASS;
+                    } else {
+                        return waitForResult.FAIL;
+                    }
+                } else {
+                    return waitForResult.ELEMENT_NOT_AVAILABLE;
+                }
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} to${
+                    negate ? ' not' : ''
+                } be enabled`,
+            },
+        );
     },
 );
 
@@ -248,9 +326,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementPosition} ${elementKey} should${
+            `🐲 ${elementPosition} ${elementKey} should${
                 negate ? ' not' : ''
-            } contain the text: ${expectedElementText} ✨`,
+            } contain the text: ${expectedElementText}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -261,23 +339,38 @@ Then(
 
         const index = Number(elementPosition.match(/\d/g)?.join('')) - 1;
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
-
-            if (elementStable) {
-                const elementText = await getElementTextAtIndex(
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
                     page,
                     elementIdentifier,
-                    index,
                 );
-                return elementText?.includes(expectedElementText) === !negate;
-            } else {
-                return elementStable;
-            }
-        });
+
+                if (elementStable) {
+                    const elementText = await getElementTextAtIndex(
+                        page,
+                        elementIdentifier,
+                        index,
+                    );
+                    if (
+                        elementText?.includes(expectedElementText) === !negate
+                    ) {
+                        return waitForResult.PASS;
+                    } else {
+                        return waitForResult.FAIL;
+                    }
+                } else {
+                    return waitForResult.ELEMENT_NOT_AVAILABLE;
+                }
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementPosition} ${elementKey} to${
+                    negate ? ' not' : ''
+                } contain the text ${expectedElementText}`,
+            },
+        );
     },
 );
 
@@ -296,9 +389,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} ${attribute} attribute should${
+            `🐲 Expected ${elementKey} ${attribute} attribute to${
                 negate ? ' not' : ''
-            } contain the text: ${expectedElementText} ✨`,
+            } contain text: ${expectedElementText}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -307,22 +400,37 @@ Then(
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementStable = await waitForSelector(
-                page,
-                elementIdentifier,
-            );
-
-            if (elementStable) {
-                const attributeText = await getAttributeText(
+        await waitFor(
+            async () => {
+                const elementStable = await waitForSelector(
                     page,
                     elementIdentifier,
-                    attribute,
                 );
-                return attributeText?.includes(expectedElementText) === !negate;
-            } else {
-                return elementStable;
-            }
-        });
+
+                if (elementStable) {
+                    const attributeText = await getAttributeText(
+                        page,
+                        elementIdentifier,
+                        attribute,
+                    );
+                    if (
+                        attributeText?.includes(expectedElementText) === !negate
+                    ) {
+                        return waitForResult.PASS;
+                    } else {
+                        return waitForResult.FAIL;
+                    }
+                } else {
+                    return waitForResult.ELEMENT_NOT_AVAILABLE;
+                }
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} ${attribute} to${
+                    negate ? ' not' : ''
+                } contain the text ${expectedElementText}`,
+            },
+        );
     },
 );
