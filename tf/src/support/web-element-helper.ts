@@ -16,7 +16,7 @@ export const getElementLocator = (
         pageElementMappings.common?.[elementKey];
 
     if (!elementIdentifier) {
-        throw Error(`Unable to find ${elementKey} mapping`);
+        throw Error(`🤖 Unable to find ${elementKey} mapping`);
     }
 
     return elementIdentifier;
