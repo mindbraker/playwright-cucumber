@@ -73,7 +73,7 @@ Then(
                 }
             },
             globalConfig,
-            { target: elementKey },
+            { target: iframeKey },
         );
     },
 );
