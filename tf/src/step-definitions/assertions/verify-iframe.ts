@@ -1,24 +1,25 @@
 import { Then } from '@cucumber/cucumber';
-import {
-    waitFor,
-    waitForSelectorInIframe,
-} from '../../support/wait-for-behavior';
-import { ScenarioWorld } from '../setup/world';
-import { getElementLocator } from '../../support/web-element-helper';
 import { ElementKey } from '../../env/global';
+import { logger } from '../../logger';
 import {
     getElementWithinIframe,
     getIframeElement,
     getTextWithinIframeElement,
 } from '../../support/html-behavior';
-import { logger } from '../../logger';
+import {
+    waitFor,
+    waitForResult,
+    waitForSelectorInIframe,
+} from '../../support/wait-for-behavior';
+import { getElementLocator } from '../../support/web-element-helper';
+import { ScenarioWorld } from '../setup/world';
 
 Then(
     /^the "([^"]*)" on the "([^"]*)" iframe should( not)? be displayed$/,
     async function (
         this: ScenarioWorld,
         elementKey: ElementKey,
-        iframeName: string,
+        iframeKey: string,
         negate: boolean,
     ) {
         const {
@@ -27,9 +28,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} on the ${iframeName} iframe should${
+            `🐲 ${elementKey} on the ${iframeKey} iframe should${
                 negate ? ' not' : ''
-            } be displayed ✨`,
+            } be displayed`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -39,34 +40,46 @@ Then(
         );
         const iframeIdentifier = getElementLocator(
             page,
-            iframeName,
+            iframeKey,
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementIframe = await getIframeElement(
-                page,
-                iframeIdentifier,
-            );
-
-            if (elementIframe) {
-                const elementStable = await waitForSelectorInIframe(
-                    elementIframe,
-                    elementIdentifier,
+        await waitFor(
+            async () => {
+                const elementIframe = await getIframeElement(
+                    page,
+                    iframeIdentifier,
                 );
 
-                if (elementStable) {
+                if (elementIframe) {
                     const isElementVisible =
                         getElementWithinIframe(
                             elementIframe,
                             elementIdentifier,
                         ) != null;
-                    return isElementVisible === !negate;
+                    if (isElementVisible === !negate) {
+                        return { result: waitForResult.PASS };
+                    } else {
+                        return {
+                            result: waitForResult.FAIL,
+                            replace: elementKey,
+                        };
+                    }
                 } else {
-                    return elementStable;
+                    return {
+                        result: waitForResult.ELEMENT_NOT_AVAILABLE,
+                        replace: iframeKey,
+                    };
                 }
-            }
-        });
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} on the ${iframeKey} iframe be${
+                    negate ? ' not' : ''
+                } be displayed`,
+            },
+        );
     },
 );
 
@@ -75,7 +88,7 @@ Then(
     async function (
         this: ScenarioWorld,
         elementKey: ElementKey,
-        iframeName: string,
+        iframeKey: string,
         negate: boolean,
         expectedElementText: string,
     ) {
@@ -85,9 +98,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} should${
+            `🐲 ${elementKey} on the ${iframeKey} should${
                 negate ? ' not' : ''
-            } contain the text ${expectedElementText} ✨`,
+            } contain the text ${expectedElementText}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -97,35 +110,60 @@ Then(
         );
         const iframeIdentifier = getElementLocator(
             page,
-            iframeName,
+            iframeKey,
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementIframe = await getIframeElement(
-                page,
-                iframeIdentifier,
-            );
-
-            if (elementIframe) {
-                const elementStable = await waitForSelectorInIframe(
-                    elementIframe,
-                    elementIdentifier,
+        await waitFor(
+            async () => {
+                const elementIframe = await getIframeElement(
+                    page,
+                    iframeIdentifier,
                 );
 
-                if (elementStable) {
-                    const elementText = await getTextWithinIframeElement(
+                if (elementIframe) {
+                    const elementStable = await waitForSelectorInIframe(
                         elementIframe,
                         elementIdentifier,
                     );
-                    return (
-                        elementText?.includes(expectedElementText) === !negate
-                    );
+
+                    if (elementStable) {
+                        const elementText = await getTextWithinIframeElement(
+                            elementIframe,
+                            elementIdentifier,
+                        );
+                        if (
+                            elementText?.includes(expectedElementText) ===
+                            !negate
+                        ) {
+                            return { result: waitForResult.PASS };
+                        } else {
+                            return {
+                                result: waitForResult.FAIL,
+                                replace: elementKey,
+                            };
+                        }
+                    } else {
+                        return {
+                            result: waitForResult.ELEMENT_NOT_AVAILABLE,
+                            replace: elementKey,
+                        };
+                    }
                 } else {
-                    return elementStable;
+                    return {
+                        result: waitForResult.ELEMENT_NOT_AVAILABLE,
+                        replace: iframeKey,
+                    };
                 }
-            }
-        });
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} to${
+                    negate ? ' not' : ''
+                } contain the text ${expectedElementText}`,
+            },
+        );
     },
 );
 
@@ -134,7 +172,7 @@ Then(
     async function (
         this: ScenarioWorld,
         elementKey: ElementKey,
-        iframeName: string,
+        iframeKey: string,
         negate: boolean,
         expectedElementText: string,
     ) {
@@ -144,9 +182,9 @@ Then(
         } = this;
 
         logger.log(
-            `🔎 ${elementKey} should${
+            `🐲 ${elementKey} on the ${iframeKey} should${
                 negate ? ' not' : ''
-            } equal the text: ${expectedElementText} ✨`,
+            } equal the text: ${expectedElementText}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -156,31 +194,52 @@ Then(
         );
         const iframeIdentifier = getElementLocator(
             page,
-            iframeName,
+            iframeKey,
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const elementIframe = await getIframeElement(
-                page,
-                iframeIdentifier,
-            );
-
-            if (elementIframe) {
-                const elementStable = await waitForSelectorInIframe(
-                    elementIframe,
-                    elementIdentifier,
+        await waitFor(
+            async () => {
+                const elementIframe = await getIframeElement(
+                    page,
+                    iframeIdentifier,
                 );
 
-                if (elementStable) {
-                    const elementText = await elementIframe?.textContent(
+                if (elementIframe) {
+                    const elementStable = await waitForSelectorInIframe(
+                        elementIframe,
                         elementIdentifier,
                     );
-                    return (elementText === expectedElementText) === !negate;
+
+                    if (elementStable) {
+                        const elementText = await elementIframe?.textContent(
+                            elementIdentifier,
+                        );
+                        if ((elementText === expectedElementText) === !negate) {
+                            return { result: waitForResult.PASS };
+                        } else {
+                            return { result: waitForResult.FAIL };
+                        }
+                    } else {
+                        return {
+                            result: waitForResult.ELEMENT_NOT_AVAILABLE,
+                            replace: elementKey,
+                        };
+                    }
                 } else {
-                    return elementStable;
+                    return {
+                        result: waitForResult.ELEMENT_NOT_AVAILABLE,
+                        replace: iframeKey,
+                    };
                 }
-            }
-        });
+            },
+            globalConfig,
+            {
+                target: elementKey,
+                failureMessage: `🤖 Expected ${elementKey} to${
+                    negate ? ' not' : ''
+                } equal text ${expectedElementText}`,
+            },
+        );
     },
 );

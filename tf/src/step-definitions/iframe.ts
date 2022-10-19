@@ -1,17 +1,22 @@
 import { Then } from '@cucumber/cucumber';
-import { waitFor, waitForSelector } from '../support/wait-for-behavior';
+import { ElementKey } from '../env/global';
+import { logger } from '../logger';
+import { getIframeElement, inputValueOnIframe } from '../support/html-behavior';
+import {
+    waitFor,
+    waitForResult,
+    waitForSelector,
+    waitForSelectorInIframe,
+} from '../support/wait-for-behavior';
 import { getElementLocator } from '../support/web-element-helper';
 import { ScenarioWorld } from './setup/world';
-import { ElementKey } from '../env/global';
-import { getIframeElement, inputValueOnIframe } from '../support/html-behavior';
-import { logger } from '../logger';
 
 Then(
     /^I fill in the "([^"]*)" input on the "([^"]*)" iframe with "([^"]*)"$/,
     async function (
         this: ScenarioWorld,
         elementKey: ElementKey,
-        iframeName: string,
+        iframeKey: string,
         inputValue: string,
     ) {
         const {
@@ -20,7 +25,7 @@ Then(
         } = this;
 
         logger.log(
-            `📝 Filling ${elementKey} input on the ${iframeName} iframe with ${inputValue}`,
+            `🐲 Filling ${elementKey} input on the ${iframeKey} iframe with ${inputValue}`,
         );
 
         const elementIdentifier = getElementLocator(
@@ -30,28 +35,45 @@ Then(
         );
         const iframeIdentifier = getElementLocator(
             page,
-            iframeName,
+            iframeKey,
             globalConfig,
         );
 
-        await waitFor(async () => {
-            const iframeStable = await waitForSelector(page, iframeIdentifier);
-
-            if (iframeStable) {
+        await waitFor(
+            async () => {
                 const elementIframe = await getIframeElement(
                     page,
                     iframeIdentifier,
                 );
 
                 if (elementIframe) {
-                    await inputValueOnIframe(
+                    const elementStable = await waitForSelectorInIframe(
                         elementIframe,
                         elementIdentifier,
-                        inputValue,
                     );
+
+                    if (elementStable) {
+                        await inputValueOnIframe(
+                            elementIframe,
+                            elementIdentifier,
+                            inputValue,
+                        );
+                        return { result: waitForResult.PASS };
+                    } else {
+                        return {
+                            result: waitForResult.ELEMENT_NOT_AVAILABLE,
+                            replace: elementKey,
+                        };
+                    }
+                } else {
+                    return {
+                        result: waitForResult.ELEMENT_NOT_AVAILABLE,
+                        replace: iframeKey,
+                    };
                 }
-            }
-            return iframeStable;
-        });
+            },
+            globalConfig,
+            { target: elementKey },
+        );
     },
 );

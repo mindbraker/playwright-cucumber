@@ -6,6 +6,7 @@ import {
     PagesConfig,
     PageElementMappings,
     UsernamesConfig,
+    ErrorsConfig,
 } from './env/global';
 import fs from 'fs';
 import { generateCucumberRuntimeTag } from './support/tag-helper';
@@ -20,6 +21,7 @@ const pagesConfig: PagesConfig = getJsonFromFile(env('PAGE_URLS_PATH'));
 const usernamesConfig: UsernamesConfig = getJsonFromFile(
     env('USERNAMES_URL_PATH'),
 );
+const errorsConfig: ErrorsConfig = getJsonFromFile(env('ERRORS_URL_PATH'));
 
 const mappingFiles = fs.readdirSync(
     `${process.cwd()}${env('PAGE_ELEMENTS_PATH')}`,
@@ -50,6 +52,7 @@ const worldParameters: GlobalConfig = {
     hostsConfig,
     pagesConfig,
     pageElementMappings,
+    errorsConfig,
     usernamesConfig,
 };
 
