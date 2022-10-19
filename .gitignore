@@ -1,4 +1,4 @@
-
+node_modules
 tf/node_modules/*
 tf/reports/*
 tf/trace.zip
