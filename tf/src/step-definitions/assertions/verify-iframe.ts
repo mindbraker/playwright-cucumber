@@ -53,10 +53,10 @@ Then(
 
                 if (elementIframe) {
                     const isElementVisible =
-                        getElementWithinIframe(
+                        (await getElementWithinIframe(
                             elementIframe,
                             elementIdentifier,
-                        ) != null;
+                        )) != null;
                     if (isElementVisible === !negate) {
                         return { result: waitForResult.PASS };
                     } else {
@@ -212,13 +212,17 @@ Then(
                     );
 
                     if (elementStable) {
-                        const elementText = await elementIframe?.textContent(
+                        const elementText = await getTextWithinIframeElement(
+                            elementIframe,
                             elementIdentifier,
                         );
                         if ((elementText === expectedElementText) === !negate) {
                             return { result: waitForResult.PASS };
                         } else {
-                            return { result: waitForResult.FAIL };
+                            return {
+                                result: waitForResult.FAIL,
+                                replace: elementKey,
+                            };
                         }
                     } else {
                         return {
